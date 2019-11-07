@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title *ngIf="results">{{ results[0].Institution.name }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list>
+    <ion-list-header *ngIf="results">
+      Courses Under {{ results[0].StudyArea.name }}
+    </ion-list-header>
+
+    <ion-item *ngFor="let item of results" (click)="courseDetail(item)">
+      <ion-avatar slot="start">
+        <img src="{{ avatarUrl }}{{ item.path }}" />
+      </ion-avatar>
+      <ion-label>
+        <h2 class="ion-text-wrap">{{ item.name }}</h2>
+        <h3>{{ item.fee }}</h3>
+        <p>{{ item.DegreeType.name }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

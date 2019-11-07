@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="primary" translucent>
+    <ion-buttons slot="start"><ion-menu-button></ion-menu-button></ion-buttons>
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <section text-center margin-bottom>
+    <ion-icon name="person"></ion-icon>
+    <h1 style="font-size:1.4em" no-margin>
+      Welcome, <br />
+      {{ username }}
+    </h1>
+  </section>
+  <section>
+    <ion-button
+      routerLink="/pages/university"
+      routerDirection="forward"
+      expand="block"
+      >APPLY</ion-button
+    >
+  </section>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6>
+        <ion-card text-center padding color="primary">
+          <ion-icon size="large" name="settings"></ion-icon>
+          <ion-card-subtitle>Settings</ion-card-subtitle>
+        </ion-card>
+      </ion-col>
+
+      <ion-col col-6>
+        <ion-card text-center padding color="primary">
+          <ion-icon size="large" name="chatboxes"></ion-icon>
+          <ion-card-subtitle>Chat</ion-card-subtitle>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list>
+    <ion-item>
+      <ion-label><strong>Application Status</strong></ion-label>
+      <ion-note slot="end" color="warning">Not Submitted</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label><strong>Decision</strong></ion-label>
+      <ion-note slot="end" color="danger">None</ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>

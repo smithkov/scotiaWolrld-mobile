@@ -1,0 +1,90 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-list *ngIf="isShoWSchool">
+    <ion-item-group *ngFor="let item of results">
+      <ion-item-divider>
+        <ion-label
+          ><h1 class="ion-text-capitalize">{{ item.uni.name }}</h1></ion-label
+        >
+      </ion-item-divider>
+
+      <ion-item
+        *ngFor="let fac of item.faculty"
+        (click)="getCourses(fac.fac.id, item.uni.id)"
+      >
+        <ion-label
+          ><h5>
+            {{ fac.fac.name }}
+          </h5></ion-label
+        >
+        <ion-badge color="primary" slot="end">{{ fac.num }}</ion-badge>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+  <ion-list *ngIf="isShoWCourse">
+    <ion-item
+      ><ion-button (click)="closeCourse()" expand="block"
+        ><ion-icon name="arrow-round-back"></ion-icon>Back</ion-button
+      ></ion-item
+    >
+    <ion-item *ngFor="let item of courses" (click)="courseDetail(item)">
+      <ion-avatar slot="start">
+        <img src="{{ avatarUrl }}{{ item.path }}" />
+      </ion-avatar>
+      <ion-label>
+        <h2 class="ion-text-wrap">{{ item.name }}</h2>
+        <h3>{{ item.fee }}</h3>
+        <p>{{ item.DegreeType.name }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-item *ngIf="isShoWDetail"
+    ><ion-button (click)="closeDetail()" expand="block"
+      ><ion-icon name="arrow-round-back"></ion-icon>Back</ion-button
+    ></ion-item
+  >
+  <ion-card *ngIf="isShoWDetail">
+    <img src="{{ avatarUrl }}{{ data.path }}" />
+    <ion-card-header>
+      <ion-card-title> {{ data.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button size="large" type="button" (click)="select()" expand="block"
+        >Select <ion-icon slot="end" name="create"></ion-icon>
+      </ion-button>
+      <ion-list>
+        <ion-item>
+          <ion-icon slot="start" name="school"></ion-icon>
+          <ion-label>{{ data.Institution.name }}</ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+        <ion-icon slot="start" name="cash"></ion-icon>
+        <ion-label>{{ data.fee }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon slot="start" name="locate"></ion-icon>
+        <ion-label>{{ data.StudyArea.name }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon slot="start" name="done-all"></ion-icon>
+        <ion-label>{{ data.requirement }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon slot="start" name="book"></ion-icon>
+        <ion-label>{{ data.DegreeType.name }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon slot="start" name="time"></ion-icon>
+        <ion-label>{{ data.duration }}</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

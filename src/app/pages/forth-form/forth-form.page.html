@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Visa History</ion-title>
+  </ion-toolbar>
+</ion-header>
+<style>
+  :root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+  }
+</style>
+<ion-content fullscreen>
+  <form #form="ngForm" (ngSubmit)="save(form)" method="post">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label>Have you applied for a UK VISA before?</ion-label>
+        <ion-select
+          required
+          [(ngModel)]="hasAppliedSel"
+          [selectedText]="hasAppliedSel"
+          (ionChange)="getHasApplied($event)"
+          name="hasApplied"
+        >
+          <ion-select-option value="Yes">
+            Yes
+          </ion-select-option>
+          <ion-select-option value="No">
+            No
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">If yes, purpose of travel</ion-label>
+        <ion-textarea [(ngModel)]="purpose" name="purpose"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating"
+          >If visa refused, reasons of visa refusal</ion-label
+        >
+        <ion-textarea
+          [(ngModel)]="reasonOfRefusal"
+          name="reasonOfRefusal"
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">More Information</ion-label>
+        <ion-textarea [(ngModel)]="moreInfo" name="moreInfo"></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <ion-toolbar>
+      <div class="ion-padding">
+        <ion-button
+          expand="block"
+          [disabled]="form.invalid"
+          type="submit"
+          class="ion-no-margin"
+          >Save</ion-button
+        >
+      </div>
+    </ion-toolbar>
+  </form>
+</ion-content>
