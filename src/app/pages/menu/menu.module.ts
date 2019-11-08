@@ -37,6 +37,22 @@ const routes: Routes = [
       {
         path: "secondForm",
         loadChildren: "../second-form/second-form.module#SecondFormPageModule"
+      },
+      {
+        path: "thirdForm",
+        loadChildren: "../third-form/third-form.module#ThirdFormPageModule"
+      },
+      {
+        path: "forthForm",
+        loadChildren: "../forth-form/forth-form.module#ForthFormPageModule"
+      },
+      {
+        path: "final",
+        loadChildren: "../final/final.module#FinalPageModule"
+      },
+      {
+        path: "uploadForm",
+        loadChildren: "../upload/upload.module#UploadPageModule"
       }
     ]
   }

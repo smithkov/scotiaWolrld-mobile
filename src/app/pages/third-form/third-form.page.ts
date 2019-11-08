@@ -6,6 +6,8 @@ import { NgForm } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AlertServiceService } from "./../../alert-service.service";
 import { LoaderServiceService } from "./../../loader-service.service";
+import { ModalPage } from "../modal/modal.page";
+import { ModalController } from "@ionic/angular";
 
 @Component({
   selector: "app-third-form",
@@ -24,7 +26,7 @@ export class ThirdFormPage implements OnInit {
   hProgrammeYearSel: any;
   hCompleted: any;
   hProgrammeYear: any;
-
+  data: any;
   pQualificationSel: any;
   pQualification: any;
   pGrade: any;
@@ -41,6 +43,7 @@ export class ThirdFormPage implements OnInit {
   constructor(
     public authenticationService: AuthenticationService,
     private loaderService: LoaderServiceService,
+    private modalCtrl: ModalController,
     public router: Router,
     private alertService: AlertServiceService
   ) {}
@@ -68,6 +71,9 @@ export class ThirdFormPage implements OnInit {
           this.englishTestSel = data.app.englishTest;
         }
       });
+      this.authenticationService.getData().then((data: any) => {
+        this.data = data;
+      });
     });
   }
 
@@ -94,6 +100,18 @@ export class ThirdFormPage implements OnInit {
   getEnglishTest(event) {
     this.englishTest = event.target.text;
   }
+  async showModal() {
+    const modal = await this.modalCtrl.create({
+      component: ModalPage
+    });
+    modal.onDidDismiss().then(dataReturned => {
+      if (dataReturned.data !== undefined) {
+        console.log(dataReturned);
+        this.data = dataReturned.data;
+      }
+    });
+    await modal.present();
+  }
   save(form: NgForm) {
     this.loaderService.showLoader("Saving ...");
     let f = new Application();
@@ -115,7 +133,7 @@ export class ThirdFormPage implements OnInit {
     this.authenticationService.form3(f).subscribe(data => {
       if (!data.isError) {
         this.loaderService.hideLoader();
-        this.router.navigate(["forth-form"]);
+        this.router.navigate(["pages/forthForm"]);
       } else {
         this.alertService.presentToast("Something went wrong!");
       }

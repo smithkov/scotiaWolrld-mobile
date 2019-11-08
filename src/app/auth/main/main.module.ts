@@ -16,10 +16,13 @@ const routes: Routes = [
       {
         path: "register",
         loadChildren: "../register/register.module#RegisterPageModule"
+      },
+      {
+        path: "landing",
+        loadChildren: "../landing/landing.module#LandingPageModule"
       }
     ]
-  },
-  { path: "", redirectTo: "main/login" }
+  }
 ];
 
 @NgModule({

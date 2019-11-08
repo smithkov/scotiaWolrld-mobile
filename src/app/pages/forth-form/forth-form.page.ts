@@ -6,6 +6,8 @@ import { NgForm } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AlertServiceService } from "./../../alert-service.service";
 import { LoaderServiceService } from "./../../loader-service.service";
+import { ModalPage } from "../modal/modal.page";
+import { ModalController } from "@ionic/angular";
 
 @Component({
   selector: "app-forth-form",
@@ -17,6 +19,7 @@ export class ForthFormPage implements OnInit {
   hasApplied: any;
   purpose: any;
   id: any;
+  data: any;
   userId: any;
   reasonOfRefusal: any;
   moreInfo: any;
@@ -24,6 +27,7 @@ export class ForthFormPage implements OnInit {
     public authenticationService: AuthenticationService,
     private loaderService: LoaderServiceService,
     public router: Router,
+    private modalCtrl: ModalController,
     private alertService: AlertServiceService
   ) {
     this.loaderService.showLoader("Loading ...");
@@ -41,11 +45,25 @@ export class ForthFormPage implements OnInit {
         }
       });
     });
+    this.authenticationService.getData().then((data: any) => {
+      this.data = data;
+    });
   }
 
   ngOnInit() {}
   getHasApplied(event) {
     this.hasApplied = event.target.text;
+  }
+  async showModal() {
+    const modal = await this.modalCtrl.create({
+      component: ModalPage
+    });
+    modal.onDidDismiss().then(dataReturned => {
+      if (dataReturned.data !== undefined) {
+        this.data = dataReturned.data;
+      }
+    });
+    await modal.present();
   }
   save(form: NgForm) {
     this.loaderService.showLoader("Saving ...");
@@ -60,8 +78,7 @@ export class ForthFormPage implements OnInit {
     this.authenticationService.form5(f).subscribe(data => {
       if (!data.isError) {
         this.loaderService.hideLoader();
-        //this.router.navigate(["forth-form"]);
-        this.alertService.presentToast("Saved!");
+        this.router.navigate(["pages/uploadForm"]);
       } else {
         this.alertService.presentToast("Something went wrong!");
       }

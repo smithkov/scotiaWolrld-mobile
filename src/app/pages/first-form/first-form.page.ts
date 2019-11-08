@@ -40,11 +40,11 @@ export class FirstFormPage implements OnInit {
   selectedLn: any;
   dataReturned: any;
   data: any;
-  isForm1: boolean;
-  isForm2: boolean;
-  isForm3: boolean;
-  isForm4: boolean;
-  isForm5: boolean;
+  // isForm1: boolean;
+  // isForm2: boolean;
+  // isForm3: boolean;
+  // isForm4: boolean;
+  // isForm5: boolean;
   hQualificationSel: any;
   hQualification: any;
   hGrade: any;
@@ -93,7 +93,7 @@ export class FirstFormPage implements OnInit {
 
   ngOnInit() {
     this.loaderService.showLoader("Loading ...");
-    this.showForm();
+    // this.showForm();
     this.authenticationService.getCurrentUser().then(e => {
       this.userId = e.id;
       this.authenticationService.formOne(e.id).subscribe(data => {
@@ -109,28 +109,29 @@ export class FirstFormPage implements OnInit {
           this.selectedFn = data.app.firstname;
           this.selectedMn = data.app.middlename;
           this.selectedLn = data.app.lastname;
-          this.postalAddress = data.app.postalAddress;
-          this.homeAddress = data.app.homeAddress;
-          this.phone = data.app.phone;
-          this.id = data.app.id;
-          this.hQualificationSel = data.app.hQualification;
-          this.hGrade = data.app.hGrade;
-          this.hSchoolName = data.app.hSchoolName;
-          this.hCompletedSel = data.app.hCompleted;
-          this.hProgrammeYearSel = data.app.hProgrammeYear;
 
-          this.pQualificationSel = data.app.pQualification;
-          this.pGrade = data.app.pGrade;
-          this.pSchoolName = data.app.pSchoolName;
-          this.pCompletedSel = data.app.pCompleted;
-          this.pProgrammeYearSel = data.app.pProgrammeYear;
-          this.id = data.app.id;
-          this.englishTestSel = data.app.englishTest;
+          // this.postalAddress = data.app.postalAddress;
+          // this.homeAddress = data.app.homeAddress;
+          // this.phone = data.app.phone;
+          // this.id = data.app.id;
+          // this.hQualificationSel = data.app.hQualification;
+          // this.hGrade = data.app.hGrade;
+          // this.hSchoolName = data.app.hSchoolName;
+          // this.hCompletedSel = data.app.hCompleted;
+          // this.hProgrammeYearSel = data.app.hProgrammeYear;
 
-          this.hasAppliedSel = data.app.hasApplied;
-          this.purpose = data.app.purpose;
-          this.reasonOfRefusal = data.app.reasonOfRefusal;
-          this.moreInfo = data.app.moreInfo;
+          // this.pQualificationSel = data.app.pQualification;
+          // this.pGrade = data.app.pGrade;
+          // this.pSchoolName = data.app.pSchoolName;
+          // this.pCompletedSel = data.app.pCompleted;
+          // this.pProgrammeYearSel = data.app.pProgrammeYear;
+          // this.id = data.app.id;
+          // this.englishTestSel = data.app.englishTest;
+
+          // this.hasAppliedSel = data.app.hasApplied;
+          // this.purpose = data.app.purpose;
+          // this.reasonOfRefusal = data.app.reasonOfRefusal;
+          // this.moreInfo = data.app.moreInfo;
         }
       });
     });
@@ -139,19 +140,19 @@ export class FirstFormPage implements OnInit {
     });
   }
 
-  showForm(
-    form1 = true,
-    form2 = false,
-    form3 = false,
-    form4 = false,
-    form5 = false
-  ) {
-    this.isForm1 = form1;
-    this.isForm2 = form2;
-    this.isForm3 = form3;
-    this.isForm4 = form4;
-    this.isForm5 = form5;
-  }
+  // showForm(
+  //   form1 = true,
+  //   form2 = false,
+  //   form3 = false,
+  //   form4 = false,
+  //   form5 = false
+  // ) {
+  //   this.isForm1 = form1;
+  //   this.isForm2 = form2;
+  //   this.isForm3 = form3;
+  //   this.isForm4 = form4;
+  //   this.isForm5 = form5;
+  // }
   async showModal() {
     const modal = await this.modalCtrl.create({
       component: ModalPage
@@ -164,32 +165,32 @@ export class FirstFormPage implements OnInit {
     });
     await modal.present();
   }
-  getHQuali(event) {
-    this.hQualification = event.target.text;
-  }
-  getHProgramme(event) {
-    this.hCompleted = event.target.text;
-  }
+  // getHQuali(event) {
+  //   this.hQualification = event.target.text;
+  // }
+  // getHProgramme(event) {
+  //   this.hCompleted = event.target.text;
+  // }
 
-  getPProgramme(event) {
-    this.pCompleted = event.target.text;
-  }
-  getHYear(event) {
-    this.hProgrammeYear = event.target.value;
-  }
-  getPYear(event) {
-    this.pProgrammeYear = event.target.value;
-  }
-  getPQuali(event) {
-    this.pQualification = event.target.text;
-  }
-  getEnglishTest(event) {
-    this.englishTest = event.target.text;
-  }
+  // getPProgramme(event) {
+  //   this.pCompleted = event.target.text;
+  // }
+  // getHYear(event) {
+  //   this.hProgrammeYear = event.target.value;
+  // }
+  // getPYear(event) {
+  //   this.pProgrammeYear = event.target.value;
+  // }
+  // getPQuali(event) {
+  //   this.pQualification = event.target.text;
+  // }
+  // getEnglishTest(event) {
+  //   this.englishTest = event.target.text;
+  // }
 
-  getHasApplied(event) {
-    this.hasApplied = event.target.text;
-  }
+  // getHasApplied(event) {
+  //   this.hasApplied = event.target.text;
+  // }
   saveForm1(form: NgForm) {
     this.loaderService.showLoader("Saving ...");
     let f = new Application();
@@ -205,77 +206,78 @@ export class FirstFormPage implements OnInit {
     this.authenticationService.form1(f).subscribe(data => {
       if (!data.isError) {
         this.loaderService.hideLoader();
-        this.showForm(false, true, false, false, false);
-      } else {
-        this.alertService.presentToast("Something went wrong!");
-      }
-    });
-  }
-  saveForm2(form: NgForm) {
-    let f = new Application();
-    f.homeAddress = form.value.homeAddress;
-    f.postalAddress = form.value.postalAddress;
-    f.phone = form.value.postalAddress;
-    f.applicationId = form.value.id;
-    f.userId = this.userId;
-    this.loaderService.showLoader("Saving ...");
-    this.authenticationService.form2(f).subscribe(data => {
-      if (!data.isError) {
-        this.loaderService.hideLoader();
-        this.showForm(false, false, true, false, false);
-      } else {
-        this.alertService.presentToast("Something went wrong!");
-      }
-    });
-  }
-  saveForm3(form: NgForm) {
-    let f = new Application();
-    f.hCompleted = form.value.hCompleted;
-    f.hQualification = form.value.hQualification;
-    f.hGrade = form.value.hGrade;
-    f.hSchoolName = form.value.hSchoolName;
-    f.hProgrammeYear = form.value.hProgrammeYear;
-
-    f.pCompleted = form.value.pCompleted;
-    f.pQualification = form.value.pQualification;
-    f.pGrade = form.value.pGrade;
-    f.pSchoolName = form.value.pSchoolName;
-    f.pProgrammeYear = form.value.pProgrammeYear;
-    f.englishTest = form.value.englishTest;
-    f.userId = this.userId;
-    f.applicationId = form.value.id;
-    this.loaderService.showLoader("Saving ...");
-    this.authenticationService.form3(f).subscribe(data => {
-      if (!data.isError) {
-        this.loaderService.hideLoader();
-        this.showForm(false, false, false, true, false);
-      } else {
-        this.alertService.presentToast("Something went wrong!");
-      }
-    });
-  }
-  saveForm4(form: NgForm) {
-    this.loaderService.showLoader("Saving ...");
-    this.showForm(false, false, false, false, true);
-    let f = new Application();
-    f.moreInfo = form.value.moreInfo;
-    f.purpose = form.value.purpose;
-    f.hasApplied = form.value.hasApplied;
-    f.reasonOfRefusal = form.value.reasonOfRefusal;
-    f.userId = this.userId;
-    f.applicationId = this.id;
-
-    this.authenticationService.form5(f).subscribe(data => {
-      if (!data.isError) {
-        this.loaderService.hideLoader();
-        //this.router.navigate(["forth-form"]);
-        this.alertService.presentToast("Saved!");
         this.router.navigate(["/pages/secondForm"]);
+        //this.showForm(false, true, false, false, false);
       } else {
         this.alertService.presentToast("Something went wrong!");
       }
     });
   }
+  // saveForm2(form: NgForm) {
+  //   let f = new Application();
+  //   f.homeAddress = form.value.homeAddress;
+  //   f.postalAddress = form.value.postalAddress;
+  //   f.phone = form.value.postalAddress;
+  //   f.applicationId = form.value.id;
+  //   f.userId = this.userId;
+  //   this.loaderService.showLoader("Saving ...");
+  //   this.authenticationService.form2(f).subscribe(data => {
+  //     if (!data.isError) {
+  //       this.loaderService.hideLoader();
+  //       this.showForm(false, false, true, false, false);
+  //     } else {
+  //       this.alertService.presentToast("Something went wrong!");
+  //     }
+  //   });
+  // }
+  // saveForm3(form: NgForm) {
+  //   let f = new Application();
+  //   f.hCompleted = form.value.hCompleted;
+  //   f.hQualification = form.value.hQualification;
+  //   f.hGrade = form.value.hGrade;
+  //   f.hSchoolName = form.value.hSchoolName;
+  //   f.hProgrammeYear = form.value.hProgrammeYear;
+
+  //   f.pCompleted = form.value.pCompleted;
+  //   f.pQualification = form.value.pQualification;
+  //   f.pGrade = form.value.pGrade;
+  //   f.pSchoolName = form.value.pSchoolName;
+  //   f.pProgrammeYear = form.value.pProgrammeYear;
+  //   f.englishTest = form.value.englishTest;
+  //   f.userId = this.userId;
+  //   f.applicationId = form.value.id;
+  //   this.loaderService.showLoader("Saving ...");
+  //   this.authenticationService.form3(f).subscribe(data => {
+  //     if (!data.isError) {
+  //       this.loaderService.hideLoader();
+  //       this.showForm(false, false, false, true, false);
+  //     } else {
+  //       this.alertService.presentToast("Something went wrong!");
+  //     }
+  //   });
+  // }
+  // saveForm4(form: NgForm) {
+  //   this.loaderService.showLoader("Saving ...");
+  //   this.showForm(false, false, false, false, true);
+  //   let f = new Application();
+  //   f.moreInfo = form.value.moreInfo;
+  //   f.purpose = form.value.purpose;
+  //   f.hasApplied = form.value.hasApplied;
+  //   f.reasonOfRefusal = form.value.reasonOfRefusal;
+  //   f.userId = this.userId;
+  //   f.applicationId = this.id;
+
+  //   this.authenticationService.form5(f).subscribe(data => {
+  //     if (!data.isError) {
+  //       this.loaderService.hideLoader();
+  //       //this.router.navigate(["forth-form"]);
+  //       this.alertService.presentToast("Saved!");
+  //       this.router.navigate(["/pages/secondForm"]);
+  //     } else {
+  //       this.alertService.presentToast("Something went wrong!");
+  //     }
+  //   });
+  // }
 
   getCountry(event) {
     this.countryId = event.target;

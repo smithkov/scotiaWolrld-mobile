@@ -1,23 +1,13 @@
 import { Component, OnInit } from "@angular/core";
-import { Application } from "../../models/application";
 import { AuthenticationService } from "./../../authentication.service";
 import { Observable } from "rxjs";
-import { ActivatedRoute, Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
-import { ModalController } from "@ionic/angular";
-import { ModalPage } from "../modal/modal.page";
-import { AlertServiceService } from "./../../alert-service.service";
 import { LoaderServiceService } from "./../../loader-service.service";
-
-import {
-  FileTransfer,
-  FileUploadOptions,
-  FileTransferObject
-} from "@ionic-native/file-transfer/ngx";
-import { FileChooser } from "@ionic-native/file-chooser/ngx";
-import { FilePath } from "@ionic-native/file-path/ngx";
-import { File } from "@ionic-native/file/ngx";
-import { environment } from "../../../environments/environment";
+import { Application } from "../../models/application";
+import { AlertServiceService } from "./../../alert-service.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ModalPage } from "../modal/modal.page";
+import { ModalController } from "@ionic/angular";
 
 @Component({
   selector: "app-second-form",
@@ -25,25 +15,18 @@ import { environment } from "../../../environments/environment";
   styleUrls: ["./second-form.page.scss"]
 })
 export class SecondFormPage implements OnInit {
-  app: any;
   postalAddress: any;
   homeAddress: any;
   phone: any;
   id: any;
   userId: any;
-  private returnPath: any;
-  path: any;
-  fileTransfer: FileTransferObject = this.transfer.create();
+  data: any;
   constructor(
     private authenticationService: AuthenticationService,
     private loaderService: LoaderServiceService,
+    private modalCtrl: ModalController,
     public router: Router,
-    private alertService: AlertServiceService,
-    private transfer: FileTransfer,
-    private file: File,
-    private filePath: FilePath,
-
-    private fileChooser: FileChooser
+    private alertService: AlertServiceService
   ) {}
 
   ngOnInit() {
@@ -53,41 +36,28 @@ export class SecondFormPage implements OnInit {
       this.authenticationService.formOne(e.id).subscribe(data => {
         this.loaderService.hideLoader();
         if (data.app) {
+          this.postalAddress = data.app.postalAddress;
+          this.homeAddress = data.app.homeAddress;
+          this.phone = data.app.phone;
           this.id = data.app.id;
         }
       });
     });
-  }
-  pickFile() {
-    this.fileChooser.open().then(fileuri => {
-      this.path = fileuri;
-      this.filePath.resolveNativePath(fileuri).then(resolvednativepath => {
-        this.returnPath = resolvednativepath;
-      });
+    this.authenticationService.getData().then((data: any) => {
+      this.data = data;
     });
   }
-  upload() {
-    let options: FileUploadOptions = {
-      fileKey: "credential",
-      fileName: "name.pdf",
-      params: { userId: this.userId, id: this.id },
-      headers: {}
-    };
-
-    this.fileTransfer
-      .upload(
-        this.returnPath,
-        `${environment.url}/application/mobileForm6`,
-        options
-      )
-      .then(
-        data => {
-          alert("success");
-        },
-        err => {
-          alert(JSON.stringify(err));
-        }
-      );
+  async showModal() {
+    const modal = await this.modalCtrl.create({
+      component: ModalPage
+    });
+    modal.onDidDismiss().then(dataReturned => {
+      if (dataReturned.data !== undefined) {
+        console.log(dataReturned);
+        this.data = dataReturned.data;
+      }
+    });
+    await modal.present();
   }
   save(form: NgForm) {
     let f = new Application();
@@ -99,7 +69,7 @@ export class SecondFormPage implements OnInit {
     this.authenticationService.form2(f).subscribe(data => {
       if (!data.isError) {
         this.loaderService.hideLoader();
-        this.router.navigate(["third-form"]);
+        this.router.navigate(["/pages/thirdForm"]);
       } else {
         this.alertService.presentToast("Something went wrong!");
       }

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>File Upload</ion-title>
+    <ion-title>Address Details</ion-title>
   </ion-toolbar>
 </ion-header>
 <style>
@@ -13,22 +13,70 @@
   }
 </style>
 <ion-content padding fullscreen>
-  <form #form="ngForm" method="post">
-    <div text-center>
-      <img src="assets/icon/pdf.png" alt="Logo" title="Logo" />
-    </div>
+  <form #form="ngForm" (ngSubmit)="save(form)" method="post">
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
-      <div class="ion-padding">
-        <ion-button (click)="pickFile()" expand="full" color="dark"
-          >Choose <ion-icon></ion-icon
-        ></ion-button>
-        {{ returnPath }}
-      </div>
-      <div class="ion-padding">
-        <ion-button (click)="upload()" expand="full" color="primary"
-          >Upload <ion-icon></ion-icon
-        ></ion-button>
-      </div>
+      <ion-item>
+        <ion-label position="floating">Home Address</ion-label>
+        <ion-textarea
+          required
+          [(ngModel)]="homeAddress"
+          name="homeAddress"
+        ></ion-textarea>
+      </ion-item>
+      <ion-input
+        [(ngModel)]="id"
+        type="hidden"
+        name="id"
+        ngModel
+        required
+      ></ion-input>
+
+      <ion-item>
+        <ion-label position="floating">Postal Address (If different)</ion-label>
+        <ion-textarea
+          [(ngModel)]="postalAddress"
+          name="postalAddress"
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked"
+          >Phone Number <ion-text color="danger">*</ion-text></ion-label
+        >
+        <ion-input
+          [(ngModel)]="phone"
+          name="phone"
+          type="tel"
+          placeholder="Telephone phone number"
+          ngModel
+          required
+        ></ion-input>
+      </ion-item>
     </ion-list>
+    <ion-card
+      color="primary"
+      (click)="showModal()"
+      class="ion-padding"
+      *ngIf="data"
+    >
+      <ion-card-header>
+        <ion-card-subtitle>{{ data.name }}</ion-card-subtitle>
+        <ion-card-title>{{ data.Institution.name }}</ion-card-title>
+      </ion-card-header>
+      <div class="ion-text-center">
+        (Tap to change course)
+      </div>
+    </ion-card>
+    <ion-toolbar>
+      <div class="ion-padding">
+        <ion-button
+          expand="block"
+          [disabled]="form.invalid"
+          type="submit"
+          class="ion-no-margin"
+          >Save</ion-button
+        >
+      </div>
+    </ion-toolbar>
   </form>
 </ion-content>
