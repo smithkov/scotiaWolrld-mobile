@@ -27,7 +27,7 @@ export class Application {
   course1: any;
   course2: any;
   level: any;
-  cityOfChoice: any;
+  cityId: any;
   schoolWish1: any;
   schoolWish2: any;
   sponsor: any;

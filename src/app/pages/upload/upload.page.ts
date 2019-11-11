@@ -83,12 +83,13 @@ export class UploadPage implements OnInit {
           this.isPdf = true;
         } else {
           this.isPdf = false;
-          this.alertService.presentToast("PDF file format not choosed!");
+          this.alertService.presentToast("File must be in PDF format!");
         }
       });
     });
   }
   upload() {
+    this.loaderService.showLoader("Loading ...");
     let options: FileUploadOptions = {
       fileKey: "credential",
       fileName: "name.pdf",
@@ -104,10 +105,14 @@ export class UploadPage implements OnInit {
       )
       .then(
         data => {
-          alert("success");
+          this.loaderService.hideLoader();
+          this.router.navigate(["pages/finalForm"]);
         },
         err => {
-          alert(JSON.stringify(err));
+          this.loaderService.hideLoader();
+          this.alertService.presentToast(
+            "The server couldn't save this, try again later."
+          );
         }
       );
   }

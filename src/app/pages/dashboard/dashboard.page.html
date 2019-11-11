@@ -6,13 +6,12 @@
 </ion-header>
 <ion-content padding>
   <section text-center margin-bottom>
-    <ion-icon name="person"></ion-icon>
     <h1 style="font-size:1.4em" no-margin>
       Welcome, <br />
       {{ username }}
     </h1>
   </section>
-  <section>
+  <section *ngIf="isApply">
     <ion-button
       routerLink="/pages/university"
       routerDirection="forward"
@@ -23,7 +22,13 @@
   <ion-grid>
     <ion-row>
       <ion-col col-6>
-        <ion-card text-center padding color="primary">
+        <ion-card
+          routerLink="/pages/setting"
+          routerDirection="forward"
+          text-center
+          padding
+          color="primary"
+        >
           <ion-icon size="large" name="settings"></ion-icon>
           <ion-card-subtitle>Settings</ion-card-subtitle>
         </ion-card>
@@ -39,13 +44,16 @@
   </ion-grid>
   <ion-list>
     <ion-item>
-      <ion-label><strong>Application Status</strong></ion-label>
-      <ion-note slot="end" color="warning">Not Submitted</ion-note>
+      <ion-label><strong>APPLICATION </strong></ion-label>
+      <ion-note slot="end" color="primary"
+        ><h6>{{ hasSubmitted }}</h6></ion-note
+      >
     </ion-item>
-
-    <ion-item>
-      <ion-label><strong>Decision</strong></ion-label>
-      <ion-note slot="end" color="danger">None</ion-note>
+    <ion-item *ngIf="hasSubmittedBool">
+      <ion-label><strong>DECISION</strong></ion-label>
+      <ion-note slot="end" color="primary"
+        ><h6>{{ decision }}</h6></ion-note
+      >
     </ion-item>
   </ion-list>
 </ion-content>

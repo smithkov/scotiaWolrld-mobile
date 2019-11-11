@@ -9,7 +9,7 @@ import { MainPage } from "./main.page";
 
 const routes: Routes = [
   {
-    path: "main",
+    path: "",
     component: MainPage,
     children: [
       { path: "login", loadChildren: "../login/login.module#LoginPageModule" },

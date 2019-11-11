@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Account Details</ion-title>
+    <ion-buttons slot="start"><ion-menu-button></ion-menu-button></ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen padding>
+  <ion-list>
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>Username</ion-label>
+      </ion-item-divider>
+
+      <ion-item lines="none">
+        <ion-label>{{ username }}</ion-label>
+      </ion-item>
+      <ion-item-divider>
+        <ion-label>Email</ion-label>
+      </ion-item-divider>
+
+      <ion-item lines="none">
+        <ion-label>{{ email }}</ion-label>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-divider>
+      <ion-label>Password</ion-label>
+    </ion-item-divider>
+
+    <ion-item
+      routerLink="/pages/password"
+      routerDirection="forward"
+      lines="none"
+    >
+      <ion-label>Change password</ion-label>
+      <ion-icon slot="end" name="arrow-round-forward"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

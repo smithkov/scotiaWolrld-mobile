@@ -133,7 +133,7 @@ export class ThirdFormPage implements OnInit {
     this.authenticationService.form3(f).subscribe(data => {
       if (!data.isError) {
         this.loaderService.hideLoader();
-        this.router.navigate(["pages/forthForm"]);
+        this.router.navigate(["pages/fifthForm"]);
       } else {
         this.alertService.presentToast("Something went wrong!");
       }

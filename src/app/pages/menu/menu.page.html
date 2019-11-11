@@ -7,16 +7,42 @@
     </ion-header>
 
     <ion-content>
+      <div class="head">
+        <ion-row style="align-items:center;">
+          <ion-col col-3> </ion-col>
+          <ion-col col-6>
+            <img class="user-avatar round" src="assets/profile.jpg" />
+          </ion-col>
+          <ion-col col-3>
+            <img src="" />
+          </ion-col>
+        </ion-row>
+        <ion-row style="justify-content: center;">
+          <h3>{{ username }}</h3>
+        </ion-row>
+      </div>
       <ion-list>
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-          <ion-item
-            [routerLink]="p.url"
-            routerDirection="root"
-            [class.active-item]="selectedPath === p.url"
-          >
-            <ion-icon slot="start" [name]="p.icon"></ion-icon>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item routerLink="/pages/dashboard" routerDirection="forward">
+            <ion-icon slot="start" name="home"></ion-icon>
             <ion-label>
-              {{ p.title }}
+              Home
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item>
+            <ion-icon slot="start" name="help"></ion-icon>
+            <ion-label>
+              Help
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item (click)="logout()">
+            <ion-icon slot="start" name="log-out"></ion-icon>
+            <ion-label>
+              Logout
             </ion-label>
           </ion-item>
         </ion-menu-toggle>

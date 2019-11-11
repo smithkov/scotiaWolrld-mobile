@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, RouterEvent } from "@angular/router";
+import { AuthenticationService } from "./../../authentication.service";
 
 @Component({
   selector: "app-menu",
@@ -7,29 +8,24 @@ import { Router, RouterEvent } from "@angular/router";
   styleUrls: ["./menu.page.scss"]
 })
 export class MenuPage implements OnInit {
-  public appPages = [
-    {
-      title: "Home",
-      url: "/home",
-      icon: "home"
-    },
-    {
-      title: "Help",
-      url: "/list",
-      icon: "alert"
-    },
-    {
-      title: "Log out",
-      url: "/list",
-      icon: "log-out"
-    }
-  ];
   selectedPath = "";
-  constructor(private router: Router) {
+  username: any;
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) {
     this.router.events.subscribe((event: RouterEvent) => {
       this.selectedPath = event.url;
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authenticationService.getCurrentUser().then((user: any) => {
+      this.username = user.username;
+    });
+  }
+
+  logout() {
+    this.authenticationService.logout();
+  }
 }

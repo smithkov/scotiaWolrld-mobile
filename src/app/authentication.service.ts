@@ -157,6 +157,32 @@ export class AuthenticationService {
         })
       );
   }
+  form4(app: Application): Observable<any> {
+    return this.http
+      .post(this.baseUrl + "/application/mobileForm4", {
+        sponsor: app.sponsor,
+        sponsorName: app.sponsorName,
+        budget: app.budget,
+        sponsorOccupation: app.sponsorOccupation,
+        userId: app.userId,
+        id: app.applicationId,
+        course1: app.course1,
+        course2: app.course2,
+        schoolWish1: app.schoolWish1,
+        schoolWish2: app.schoolWish2,
+        cityId: app.cityId
+      })
+      .pipe(
+        tap(results => {
+          console.log(results);
+          return results;
+        }),
+        catchError(e => {
+          console.log(e.error.msg);
+          throw new Error(e);
+        })
+      );
+  }
   form5(app: Application): Observable<any> {
     return this.http
       .post(this.baseUrl + "/application/mobileForm5", {
@@ -164,6 +190,23 @@ export class AuthenticationService {
         purpose: app.purpose,
         hasApplied: app.hasApplied,
         reasonOfRefusal: app.reasonOfRefusal,
+        userId: app.userId,
+        id: app.applicationId
+      })
+      .pipe(
+        tap(results => {
+          console.log(results);
+          return results;
+        }),
+        catchError(e => {
+          console.log(e.error.msg);
+          throw new Error(e);
+        })
+      );
+  }
+  final(app: Application): Observable<any> {
+    return this.http
+      .post(this.baseUrl + "/application/mobileSubmission", {
         userId: app.userId,
         id: app.applicationId
       })
@@ -220,7 +263,7 @@ export class AuthenticationService {
   logout() {
     this.storage.remove(TOKEN_KEY).then(() => {
       this.authenticationState.next(false);
-      this.router.navigate(["/login"]);
+      this.router.navigate(["/main/login"]);
     });
   }
   getSchools(): Observable<any> {
@@ -234,6 +277,19 @@ export class AuthenticationService {
   formOne(userId): Observable<any> {
     return this.http
       .post(this.baseUrl + "/application/mobileStep1", { userId: userId })
+      .pipe(
+        map(results => {
+          return results;
+        })
+      );
+  }
+  changePassword(oldPass, newPass, username): Observable<any> {
+    return this.http
+      .post(this.baseUrl + "/user/mobileChangePassword", {
+        username: username,
+        oldPassword: oldPass,
+        newPassword: newPass
+      })
       .pipe(
         map(results => {
           return results;

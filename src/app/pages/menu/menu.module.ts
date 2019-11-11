@@ -47,12 +47,24 @@ const routes: Routes = [
         loadChildren: "../forth-form/forth-form.module#ForthFormPageModule"
       },
       {
-        path: "final",
+        path: "fifthForm",
+        loadChildren: "../fifth-form/fifth-form.module#FifthFormPageModule"
+      },
+      {
+        path: "finalForm",
         loadChildren: "../final/final.module#FinalPageModule"
       },
       {
         path: "uploadForm",
         loadChildren: "../upload/upload.module#UploadPageModule"
+      },
+      {
+        path: "setting",
+        loadChildren: "../setting/setting.module#SettingPageModule"
+      },
+      {
+        path: "password",
+        loadChildren: "../password/password.module#PasswordPageModule"
       }
     ]
   }
