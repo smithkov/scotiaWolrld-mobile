@@ -15,7 +15,8 @@ import { LoaderServiceService } from "./../../loader-service.service";
 export class CoursePage implements OnInit {
   loading: any;
   avatarUrl: any;
-  results: Observable<any>;
+  results: any;
+  resultsCache: any;
   constructor(
     private navCtrl: NavController,
     public authenticationService: AuthenticationService,
@@ -39,11 +40,33 @@ export class CoursePage implements OnInit {
       data => {
         this.loaderService.hideLoader();
         this.results = data.data;
+        this.resultsCache = data.data;
       },
       error => {
         this.loaderService.hideLoader();
       }
     );
+  }
+  getFilter(evt: any) {
+    let str = evt.target.value.trim().toUpperCase();
+    console.log(str);
+    if (str !== "") {
+      let cache: any = [];
+
+      this.resultsCache.forEach((item: any) => {
+        let name = item.name;
+        if (name.toUpperCase().includes(str)) {
+          cache.push(item);
+        }
+      });
+      if (cache.length === 0) {
+        this.alertService.presentToast("No result found");
+      } else {
+        this.results = cache;
+      }
+    } else {
+      this.results = this.resultsCache;
+    }
   }
   courseDetail(course) {
     let courseString = JSON.stringify(course);

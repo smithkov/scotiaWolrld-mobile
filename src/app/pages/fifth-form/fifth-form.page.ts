@@ -29,28 +29,25 @@ export class FifthFormPage implements OnInit {
     public router: Router,
     private modalCtrl: ModalController,
     private alertService: AlertServiceService
-  ) {
-    this.loaderService.showLoader("Loading ...");
+  ) {}
+
+  ngOnInit() {
     this.authenticationService.getCurrentUser().then(e => {
       this.userId = e.id;
-      this.authenticationService.formOne(e.id).subscribe(data => {
-        this.loaderService.hideLoader();
-        if (data.app) {
-          this.sponsorSel = data.app.sponsor;
-          this.sponsorName = data.app.sponsorName;
-          this.sponsorOccupation = data.app.sponsorOccupation;
-          this.budget = data.app.budget;
-          this.id = data.app.id;
+      this.authenticationService.getApplication().then(app => {
+        if (app) {
+          this.sponsorSel = app.sponsor;
+          this.sponsorName = app.sponsorName;
+          this.sponsorOccupation = app.sponsorOccupation;
+          this.budget = app.budget;
+          this.id = app.id;
         }
       });
     });
     this.authenticationService.getData().then((data: any) => {
       this.data = data;
-      console.log(data);
     });
   }
-
-  ngOnInit() {}
   getSponsor(event) {
     this.sponsor = event.target.text;
   }
@@ -66,6 +63,7 @@ export class FifthFormPage implements OnInit {
     await modal.present();
   }
   save(form: NgForm) {
+    let getCourse = this.data;
     this.loaderService.showLoader("Saving ...");
     let f = new Application();
     f.sponsor = form.value.sponsor;
@@ -74,17 +72,20 @@ export class FifthFormPage implements OnInit {
     f.sponsorOccupation = form.value.sponsorOccupation;
     f.userId = this.userId;
     f.applicationId = this.id;
-    f.course1 = this.data.name;
-    f.course2 = this.data.name;
-    f.schoolWish1 = this.data.Institution.name;
-    f.schoolWish2 = this.data.Institution.name;
-    f.cityId = this.data.Institution.CityId;
+    // f.course1 = getCourse.name;
+
+    // f.course2 = getCourse.name;
+    // f.schoolWish1 = getCourse.Institution.name;
+    // f.schoolWish2 = getCourse.Institution.name;
+    // f.cityId = getCourse.Institution.CityId;
+
+    f.applicationId = this.id;
 
     this.authenticationService.form4(f).subscribe(data => {
+      this.loaderService.hideLoader();
       if (!data.isError) {
-        this.loaderService.hideLoader();
         //this.router.navigate(["pages/uploadForm"]);
-        this.router.navigate(["pages/forthForm"]);
+        this.router.navigate(["/pages/forthForm"]);
       } else {
         this.alertService.presentToast("Something went wrong!");
       }

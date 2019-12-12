@@ -6,7 +6,7 @@ import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { FileOpener } from "@ionic-native/file-opener/ngx";
-
+import { WebView } from "@ionic-native/ionic-webview/ngx";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { AuthenticationService } from "./authentication.service";
@@ -18,6 +18,10 @@ import { FileTransfer } from "@ionic-native/file-transfer/ngx";
 import { FileChooser } from "@ionic-native/file-chooser/ngx";
 import { FilePath } from "@ionic-native/file-path/ngx";
 import { File } from "@ionic-native/file/ngx";
+import { Camera } from "@ionic-native/camera/ngx";
+import { OneSignal } from "@ionic-native/onesignal/ngx";
+import { DocumentViewer } from "@ionic-native/document-viewer/ngx";
+import { InAppBrowser } from "@ionic-native/in-app-browser/ngx";
 
 export function jwtOptionsFactory(storage) {
   return {
@@ -52,10 +56,16 @@ export function jwtOptionsFactory(storage) {
     FileTransfer,
     FileChooser,
     FilePath,
+
+    WebView,
     FileOpener,
     File,
     AuthenticationService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    Camera,
+    OneSignal,
+    DocumentViewer,
+    InAppBrowser
   ],
   bootstrap: [AppComponent]
 })

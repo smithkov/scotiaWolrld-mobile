@@ -15,20 +15,25 @@ import { LoaderServiceService } from "./../../loader-service.service";
 })
 export class LoginPage implements OnInit {
   loading: any;
+  pushId: any;
   constructor(
     private navCtrl: NavController,
     private loaderService: LoaderServiceService,
     public authenticationService: AuthenticationService,
     public loadingController: LoadingController,
     private alertService: AlertServiceService
-  ) {}
+  ) {
+    this.authenticationService.getPush().then(pushId => {
+      this.pushId = pushId;
+    });
+  }
 
   ngOnInit() {}
 
   login(form: NgForm) {
     this.loaderService.showLoader("Signing in ...");
     this.authenticationService
-      .login(form.value.username, form.value.password)
+      .login(form.value.username, form.value.password, this.pushId)
       .subscribe(
         data => {
           this.loaderService.hideLoader();
@@ -40,7 +45,7 @@ export class LoginPage implements OnInit {
         },
         error => {
           this.loaderService.hideLoader();
-          console.log(error);
+          this.alertService.presentToast("Server not available");
         }
       );
   }

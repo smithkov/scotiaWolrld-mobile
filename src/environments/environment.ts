@@ -4,9 +4,15 @@
 
 export const environment = {
   production: false,
-  //url: "https://thescotiaworld.co.uk/",
-  url: "https://thescotiaworld.co.uk",
-  avatarUrl: `https://thescotiaworld.co.uk/uploads/`
+  url: "https://scotstudy.co.uk",
+  // //url: "https://thescotiaworld.co.uk",
+  avatarUrl: `https://scotstudy.co.uk/uploads/`,
+  photoUrl: `https://scotstudy.co.uk/photos/`,
+  defaultPhoto: `https://scotstudy.co.uk/photos/no_photo.jpg`
+  //url: "http://localhost:3000",
+  //url: "https://thescotiaworld.co.uk",
+  //avatarUrl: `http://localhost:3000/uploads/`,
+  //photoUrl: `http://localhost:3000/photos/`
 };
 
 /*

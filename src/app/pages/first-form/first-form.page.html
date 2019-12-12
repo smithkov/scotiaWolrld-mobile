@@ -31,25 +31,18 @@
 
       <ion-item>
         <ion-label position="stacked"
-          >Middle Name <ion-text color="danger">*</ion-text></ion-label
-        >
+          >Middle Name <ion-text color="danger"></ion-text
+        ></ion-label>
         <ion-input
           [(ngModel)]="selectedMn"
           name="middlename"
           type="text"
           placeholder="Middle Name"
           ngModel
-          required
         ></ion-input>
       </ion-item>
 
-      <ion-input
-        [(ngModel)]="id"
-        type="hidden"
-        name="id"
-        ngModel
-        required
-      ></ion-input>
+      <ion-input [(ngModel)]="id" type="hidden" name="id" ngModel></ion-input>
 
       <ion-item>
         <ion-label position="stacked"

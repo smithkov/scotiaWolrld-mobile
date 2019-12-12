@@ -23,7 +23,10 @@ export class ThirdFormPage implements OnInit {
   hGrade: any;
   hSchoolName: any;
   hCompletedSel: any;
+  completionYr: any;
   hProgrammeYearSel: any;
+  highSchoolComletionYrSel: any;
+  highSchoolName: any;
   hCompleted: any;
   hProgrammeYear: any;
   data: any;
@@ -42,33 +45,35 @@ export class ThirdFormPage implements OnInit {
 
   constructor(
     public authenticationService: AuthenticationService,
-    private loaderService: LoaderServiceService,
+    public loaderService: LoaderServiceService,
     private modalCtrl: ModalController,
     public router: Router,
     private alertService: AlertServiceService
   ) {}
 
   ngOnInit() {
-    this.loaderService.showLoader("Loading ...");
     this.authenticationService.getCurrentUser().then(e => {
       this.userId = e.id;
-      this.authenticationService.formOne(e.id).subscribe(data => {
-        this.loaderService.hideLoader();
-        this.quali = data.quali;
-        if (data.app) {
-          this.hQualificationSel = data.app.hQualification;
-          this.hGrade = data.app.hGrade;
-          this.hSchoolName = data.app.hSchoolName;
-          this.hCompletedSel = data.app.hCompleted;
-          this.hProgrammeYearSel = data.app.hProgrammeYear;
+      this.authenticationService.getStaticData().then(res => {
+        this.quali = res.quali;
+      });
+      this.authenticationService.getApplication().then(app => {
+        if (app) {
+          this.hQualificationSel = app.hQualification;
+          this.hGrade = app.hGrade;
+          this.hSchoolName = app.hSchoolName;
+          this.hCompletedSel = app.hCompleted;
+          this.hProgrammeYearSel = app.hProgrammeYear;
+          this.highSchoolComletionYrSel = app.completionYr;
+          this.highSchoolName = app.highSchoolName;
 
-          this.pQualificationSel = data.app.pQualification;
-          this.pGrade = data.app.pGrade;
-          this.pSchoolName = data.app.pSchoolName;
-          this.pCompletedSel = data.app.pCompleted;
-          this.pProgrammeYearSel = data.app.pProgrammeYear;
-          this.id = data.app.id;
-          this.englishTestSel = data.app.englishTest;
+          this.pQualificationSel = app.pQualification;
+          this.pGrade = app.pGrade;
+          this.pSchoolName = app.pSchoolName;
+          this.pCompletedSel = app.pCompleted;
+          this.pProgrammeYearSel = app.pProgrammeYear;
+          this.id = app.id;
+          this.englishTestSel = app.englishTest;
         }
       });
       this.authenticationService.getData().then((data: any) => {
@@ -80,6 +85,10 @@ export class ThirdFormPage implements OnInit {
   getHQuali(event) {
     this.hQualification = event.target.text;
   }
+
+  getHighSchoolYear(event) {
+    this.completionYr = event.target.text;
+  }
   getHProgramme(event) {
     this.hCompleted = event.target.text;
   }
@@ -88,7 +97,6 @@ export class ThirdFormPage implements OnInit {
     this.pCompleted = event.target.text;
   }
   getHYear(event) {
-    console.log(event);
     this.hProgrammeYear = event.target.value;
   }
   getPYear(event) {
@@ -120,6 +128,8 @@ export class ThirdFormPage implements OnInit {
     f.hGrade = form.value.hGrade;
     f.hSchoolName = form.value.hSchoolName;
     f.hProgrammeYear = form.value.hProgrammeYear;
+    f.completionYr = form.value.completionYr;
+    f.highSchoolName = form.value.highSchoolName;
 
     f.pCompleted = form.value.pCompleted;
     f.pQualification = form.value.pQualification;
@@ -128,7 +138,7 @@ export class ThirdFormPage implements OnInit {
     f.pProgrammeYear = form.value.pProgrammeYear;
     f.englishTest = form.value.englishTest;
     f.userId = this.userId;
-    f.applicationId = form.value.id;
+    f.applicationId = this.id;
 
     this.authenticationService.form3(f).subscribe(data => {
       if (!data.isError) {

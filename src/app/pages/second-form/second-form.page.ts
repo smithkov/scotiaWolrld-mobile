@@ -30,19 +30,18 @@ export class SecondFormPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loaderService.showLoader("Loading ...");
     this.authenticationService.getCurrentUser().then(e => {
       this.userId = e.id;
-      this.authenticationService.formOne(e.id).subscribe(data => {
-        this.loaderService.hideLoader();
-        if (data.app) {
-          this.postalAddress = data.app.postalAddress;
-          this.homeAddress = data.app.homeAddress;
-          this.phone = data.app.phone;
-          this.id = data.app.id;
+      this.authenticationService.getApplication().then(app => {
+        if (app) {
+          this.postalAddress = app.postalAddress;
+          this.homeAddress = app.homeAddress;
+          this.phone = app.phone;
+          this.id = app.id;
         }
       });
     });
+    //this gets the current course
     this.authenticationService.getData().then((data: any) => {
       this.data = data;
     });
@@ -60,15 +59,16 @@ export class SecondFormPage implements OnInit {
     await modal.present();
   }
   save(form: NgForm) {
+    this.loaderService.showLoader("Saving ...");
     let f = new Application();
     f.homeAddress = form.value.homeAddress;
     f.postalAddress = form.value.postalAddress;
-    f.phone = form.value.postalAddress;
+    f.phone = form.value.phone;
     f.applicationId = form.value.id;
     f.userId = this.userId;
     this.authenticationService.form2(f).subscribe(data => {
+      this.loaderService.hideLoader();
       if (!data.isError) {
-        this.loaderService.hideLoader();
         this.router.navigate(["/pages/thirdForm"]);
       } else {
         this.alertService.presentToast("Something went wrong!");

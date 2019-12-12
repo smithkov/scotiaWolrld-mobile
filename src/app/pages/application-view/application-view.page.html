@@ -1,0 +1,220 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Application</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding fullscreen>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>First Name</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.firstname}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.middlename">
+    <ion-card-header>
+      <ion-card-title>Middle Name</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.middlename}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Last Name</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.lastname}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Country</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.Country.name}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Date of Birth</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.dob|date}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Gender</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.gender}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Marital</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.marital}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Home Address</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.homeAddress}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.postalAddress">
+    <ion-card-header>
+      <ion-card-title>Postal Address</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.postalAddress}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.phone">
+    <ion-card-header>
+      <ion-card-title>Phone</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.phone}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.hQualification">
+    <ion-card-header>
+      <ion-card-title>Highest Qualification</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.hQualification}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.hGrade">
+    <ion-card-header>
+      <ion-card-title>Highest Qualification Grade</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.hGrade}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.hSchoolName">
+    <ion-card-header>
+      <ion-card-title>School Name</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.hSchoolName}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.hCompleted">
+    <ion-card-header>
+      <ion-card-title>Completion Status</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.hCompleted}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.hProgrammeYear">
+    <ion-card-header>
+      <ion-card-title>Programme Year</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.hProgrammeYear|date}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.pQualification">
+    <ion-card-header>
+      <ion-card-title>Previous Qualification</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.pQualification}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.pGrade">
+    <ion-card-header>
+      <ion-card-title>Previous Qualification Grade</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.pGrade}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.pSchoolName">
+    <ion-card-header>
+      <ion-card-title>School Name</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.pSchoolName}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.pCompleted">
+    <ion-card-header>
+      <ion-card-title>Completion Status</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.pCompleted}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.pProgrammeYear">
+    <ion-card-header>
+      <ion-card-title>Programme Year</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.pProgrammeYear|date}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.highSchoolName">
+    <ion-card-header>
+      <ion-card-title>High School Name</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.highSchoolName}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.completionYr">
+    <ion-card-header>
+      <ion-card-title>Completion Year</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.completionYr|date}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.englishTest">
+    <ion-card-header>
+      <ion-card-title>English Test</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.englishTest}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.course1">
+    <ion-card-header>
+      <ion-card-title>Course</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.course1}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.schoolWish1">
+    <ion-card-header>
+      <ion-card-title>School of Choice</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.schoolWish1}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.level">
+    <ion-card-header>
+      <ion-card-title>Level</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.level}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.sponsor">
+    <ion-card-header>
+      <ion-card-title>Sponsor</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.sponsor}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.sponsorName">
+    <ion-card-header>
+      <ion-card-title>Sponsor's Name</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.sponsorName}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.sponsorOccupation">
+    <ion-card-header>
+      <ion-card-title>Sponsor's Occupation</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.sponsorOccupation}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.budget">
+    <ion-card-header>
+      <ion-card-title>Budget</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.budget}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.hasApplied">
+    <ion-card-header>
+      <ion-card-title>Has Applied for Visa Before?</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.hasApplied}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.purpose">
+    <ion-card-header>
+      <ion-card-title>Purpose of Travel</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.purpose}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.reasonOfRefusal">
+    <ion-card-header>
+      <ion-card-title>Reasons of Refusal</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.reasonOfRefusal}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.moreInfo">
+    <ion-card-header>
+      <ion-card-title>More Information</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> <h2>{{app?.moreInfo}}</h2></ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="app?.credential">
+    <div (click)="download()" text-center>
+      <img src="assets/icon/pdf.png" alt="Logo" title="Logo" />
+    </div>
+  </ion-card>
+</ion-content>

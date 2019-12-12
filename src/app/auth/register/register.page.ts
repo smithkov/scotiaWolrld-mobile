@@ -13,6 +13,7 @@ import { LoaderServiceService } from "./../../loader-service.service";
 })
 export class RegisterPage implements OnInit {
   loading: any;
+  pushId: any;
   constructor(
     public router: Router,
     public authenticationService: AuthenticationService,
@@ -30,9 +31,9 @@ export class RegisterPage implements OnInit {
       .subscribe(
         data => {
           this.loaderService.hideLoader();
-          if (data.success) this.router.navigate(["dashboard"]);
+          if (data.success) this.router.navigate(["/pages/dashboard"]);
           else {
-            this.alertService.presentToast("Invalid login!");
+            this.alertService.presentToast(data.message);
           }
         },
         error => {

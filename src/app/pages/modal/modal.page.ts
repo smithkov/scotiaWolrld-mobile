@@ -25,7 +25,9 @@ export class ModalPage implements OnInit {
     private navParams: NavParams,
     public authenticationService: AuthenticationService,
     private loaderService: LoaderServiceService
-  ) {}
+  ) {
+    this.avatarUrl = environment.avatarUrl;
+  }
 
   ngOnInit() {
     this.title = "Intitutions";
@@ -47,6 +49,7 @@ export class ModalPage implements OnInit {
     }
   }
   getCourses(facultyId, schoolId) {
+    console.log(`facultyId   ${facultyId}   School :  ${schoolId}`);
     this.isShoWSchool = false;
     this.isShoWCourse = true;
     this.isShoWDetail = false;

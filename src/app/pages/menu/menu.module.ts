@@ -65,6 +65,40 @@ const routes: Routes = [
       {
         path: "password",
         loadChildren: "../password/password.module#PasswordPageModule"
+      },
+      {
+        path: "messages",
+        loadChildren: "../messages/messages.module#MessagesPageModule"
+      },
+      {
+        path: "compose",
+        loadChildren: "../compose/compose.module#ComposePageModule"
+      },
+      {
+        path: "message-sent",
+        loadChildren:
+          "../message-sent/message-sent.module#MessageSentPageModule"
+      },
+      {
+        path: "message-create",
+        loadChildren:
+          "../message-create/message-create.module#MessageCreatePageModule"
+      },
+      {
+        path: "message-read/:msgObj",
+        loadChildren:
+          "../message-read/message-read.module#MessageReadPageModule"
+      },
+      { path: "photo", loadChildren: "../photo/photo.module#PhotoPageModule" },
+      {
+        path: "checklist",
+        loadChildren: "../checklist/checklist.module#ChecklistPageModule"
+      },
+      { path: "help", loadChildren: "../help/help.module#HelpPageModule" },
+      {
+        path: "viewApplication",
+        loadChildren:
+          "../application-view/application-view.module#ApplicationViewPageModule"
       }
     ]
   }

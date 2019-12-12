@@ -51,13 +51,11 @@ export class UploadPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loaderService.showLoader("Loading ...");
     this.authenticationService.getCurrentUser().then(e => {
       this.userId = e.id;
-      this.authenticationService.formOne(e.id).subscribe(data => {
-        this.loaderService.hideLoader();
-        if (data.app) {
-          this.id = data.app.id;
+      this.authenticationService.getApplication().then(app => {
+        if (app) {
+          this.id = app.id;
         }
       });
     });
@@ -89,7 +87,7 @@ export class UploadPage implements OnInit {
     });
   }
   upload() {
-    this.loaderService.showLoader("Loading ...");
+    this.loaderService.showLoader("Saving document ...");
     let options: FileUploadOptions = {
       fileKey: "credential",
       fileName: "name.pdf",

@@ -7,7 +7,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
+<ion-content fullscreen padding>
+  <ion-searchbar
+    placeholder="Search by course name"
+    (ionInput)="getFilter($event)"
+  ></ion-searchbar>
   <ion-list>
     <ion-list-header *ngIf="results">
       Courses Under {{ results[0].StudyArea.name }}

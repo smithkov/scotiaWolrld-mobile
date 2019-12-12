@@ -1,3 +1,18 @@
+<style>
+  #msgBadge {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius: 100%;
+  }
+  #msgContainer {
+    position: relative;
+
+    overflow: visible !important;
+  }
+</style>
 <ion-header>
   <ion-toolbar color="primary" translucent>
     <ion-buttons slot="start"><ion-menu-button></ion-menu-button></ion-buttons>
@@ -19,6 +34,22 @@
       >APPLY</ion-button
     >
   </section>
+  <section *ngIf="isShowContBtn">
+    <ion-button
+      routerLink="/pages/form"
+      routerDirection="forward"
+      expand="block"
+      >CONTINUE</ion-button
+    >
+  </section>
+  <section *ngIf="hasSubmittedBool">
+    <ion-button
+      routerLink="/pages/viewApplication"
+      routerDirection="forward"
+      expand="block"
+      >View Application</ion-button
+    >
+  </section>
   <ion-grid>
     <ion-row>
       <ion-col col-6>
@@ -35,25 +66,91 @@
       </ion-col>
 
       <ion-col col-6>
-        <ion-card text-center padding color="primary">
+        <ion-card
+          routerLink="/pages/messages"
+          routerDirection="forward"
+          id="msgContainer"
+          text-center
+          padding
+          color="primary"
+        >
+          <ion-badge id="msgBadge" *ngIf="isShowNotificationIcon" color="danger"
+            >{{totalNumUnread}}
+          </ion-badge>
           <ion-icon size="large" name="chatboxes"></ion-icon>
-          <ion-card-subtitle>Chat</ion-card-subtitle>
+          <ion-card-subtitle>Inbox</ion-card-subtitle>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-list>
+
+  <ion-list *ngIf="hasLoaded">
     <ion-item>
-      <ion-label><strong>APPLICATION </strong></ion-label>
-      <ion-note slot="end" color="primary"
-        ><h6>{{ hasSubmitted }}</h6></ion-note
-      >
+      <img
+        style="height: 30px; width:30px;"
+        slot="start"
+        src="{{hasSubmitted}}"
+      />
+      <ion-label>Form Submission </ion-label>
     </ion-item>
-    <ion-item *ngIf="hasSubmittedBool">
-      <ion-label><strong>DECISION</strong></ion-label>
-      <ion-note slot="end" color="primary"
-        ><h6>{{ decision }}</h6></ion-note
-      >
+    <ion-item>
+      <img
+        style="height: 30px; width:30px;"
+        slot="start"
+        src="{{eligibilityCheck}}"
+      />
+      <ion-label>Eligibility Check </ion-label>
+    </ion-item>
+    <ion-item>
+      <img
+        style="height: 30px; width:30px;"
+        slot="start"
+        src="{{reqProvision}}"
+      />
+      <ion-label>Requirement Provision </ion-label>
+    </ion-item>
+    <ion-item>
+      <img
+        style="height: 30px; width:30px;"
+        slot="start"
+        src="{{hasFinalSubmit}}"
+      />
+      <ion-label>Application Submission </ion-label>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label><h2>Decision</h2></ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <img
+        style="height: 30px; width:30px;"
+        slot="start"
+        src="{{underReview}}"
+      />
+      <ion-label>Under Review </ion-label>
+    </ion-item>
+    <ion-item *ngIf="!decision">
+      <img
+        style="height: 30px; width:30px;"
+        slot="start"
+        src="{{pendingImg2}}"
+      />
+      <ion-label>Application Status : Pending </ion-label>
+    </ion-item>
+    <ion-item *ngIf="decision">
+      <img
+        style="height: 30px; width:30px;"
+        slot="start"
+        src="{{decisionImage}}"
+      />
+      <ion-label>{{decision}} </ion-label>
+    </ion-item>
+    <ion-item *ngIf="!hasRejected">
+      <img style="height: 30px; width:30px;" slot="start" src="{{hasPaid}}" />
+      <ion-label>Fee Payment Confirmation </ion-label>
+    </ion-item>
+    <ion-item *ngIf="!hasRejected">
+      <img style="height: 30px; width:30px;" slot="start" src="{{hasCas}}" />
+      <ion-label>CAS Issuance </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

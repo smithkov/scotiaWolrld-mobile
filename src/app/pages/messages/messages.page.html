@@ -1,0 +1,43 @@
+<style>
+  .msg {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Inbox</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="!roleId" (click)="compose()" slot="end">
+      <ion-icon size="large" name="create"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen padding>
+  <ion-list>
+    <ion-list-header>
+      Messages
+    </ion-list-header>
+    <ion-item *ngFor="let item of messages" (click)="read(item)">
+      <ion-avatar slot="start">
+        <img src="{{ photoUrl }}{{ item.senderPhoto }}" />
+      </ion-avatar>
+      <ion-label *ngIf="item.hasRead">
+        <h2>Sent by {{item.senderName}}</h2>
+        <h3>{{item.subject}}</h3>
+        <h5 slot="end">{{item.createdAt|date}}</h5>
+        <h6 class="msg">{{item.message}}</h6>
+      </ion-label>
+      <ion-label *ngIf="!item.hasRead">
+        <h2><strong>Sent by {{item.senderName}}</strong></h2>
+        <h3><strong>{{item.subject}}</strong></h3>
+        <h5 slot="end"><strong>{{item.createdAt|date}}</strong></h5>
+        <h6 class="msg"><strong>{{item.message}}</strong></h6>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

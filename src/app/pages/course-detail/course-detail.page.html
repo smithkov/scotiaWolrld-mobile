@@ -25,6 +25,10 @@
         <ion-label>{{ data.fee }}</ion-label>
       </ion-item>
       <ion-item>
+        <ion-icon slot="start" name="cash"></ion-icon>
+        <ion-label>£ {{ data.scholarshipAmount }} (Scholarship)</ion-label>
+      </ion-item>
+      <ion-item>
         <ion-icon slot="start" name="locate"></ion-icon>
         <ion-label>{{ data.StudyArea.name }}</ion-label>
       </ion-item>
@@ -40,6 +44,11 @@
         <ion-icon slot="start" name="time"></ion-icon>
         <ion-label>{{ data.duration }}</ion-label>
       </ion-item>
+      <ion-text color="primary">
+        <h1>Requirements</h1>
+      </ion-text>
+      <br />
+      <p [innerHTML]="data.DegreeType.requirements"></p>
 
       <ion-button
         size="large"

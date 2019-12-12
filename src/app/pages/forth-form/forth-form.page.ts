@@ -30,18 +30,15 @@ export class ForthFormPage implements OnInit {
     private modalCtrl: ModalController,
     private alertService: AlertServiceService
   ) {
-    this.loaderService.showLoader("Loading ...");
     this.authenticationService.getCurrentUser().then(e => {
       this.userId = e.id;
-      this.authenticationService.formOne(e.id).subscribe(data => {
-        this.loaderService.hideLoader();
-
-        if (data.app) {
-          this.hasAppliedSel = data.app.hasApplied;
-          this.purpose = data.app.purpose;
-          this.reasonOfRefusal = data.app.reasonOfRefusal;
-          this.moreInfo = data.app.moreInfo;
-          this.id = data.app.id;
+      this.authenticationService.getApplication().then(app => {
+        if (app) {
+          this.hasAppliedSel = app.hasApplied;
+          this.purpose = app.purpose;
+          this.reasonOfRefusal = app.reasonOfRefusal;
+          this.moreInfo = app.moreInfo;
+          this.id = app.id;
         }
       });
     });
@@ -68,6 +65,8 @@ export class ForthFormPage implements OnInit {
   save(form: NgForm) {
     this.loaderService.showLoader("Saving ...");
     let f = new Application();
+    let getCourse = this.data;
+    f.courseId = getCourse.id;
     f.moreInfo = form.value.moreInfo;
     f.purpose = form.value.purpose;
     f.hasApplied = form.value.hasApplied;

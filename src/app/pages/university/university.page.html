@@ -8,6 +8,10 @@
 </ion-header>
 
 <ion-content fullscreen class="ion-padding">
+  <ion-searchbar
+    placeholder="Search by school name"
+    (ionInput)="getFilter($event)"
+  ></ion-searchbar>
   <ion-card *ngFor="let item of results">
     <img src="{{ avatarUrl }}{{ item.uni.banner }}" />
     <ion-card-header>
@@ -18,23 +22,25 @@
     <ion-card-content>
       <ion-list>
         <ion-item
-          routerLink="/pages/course/{{ fac.fac.id }}/{{ item.uni.id }}"
+          routerLink="/pages/course/{{ fac.facultyId }}/{{ item.uni.id }}"
           routerDirection="forward"
           *ngFor="let fac of item.faculty"
         >
           <ion-avatar slot="start">
             <img
               src="{{ avatarUrl }}{{
-                fac.fac.FacultyImages ? fac.fac.FacultyImages[0].path : ''
-              }}"
+                fac.facultyImage ? fac.facultyImage : ''
+              }}.png"
             />
           </ion-avatar>
           <ion-label
             ><h5 class="ion-text-wrap">
-              {{ fac.fac.name }}
+              {{ fac.name }}
             </h5></ion-label
           >
-          <ion-badge color="primary" slot="end">{{ fac.num }}</ion-badge>
+          <ion-badge color="primary" slot="end"
+            >{{ fac.totalCourse }}</ion-badge
+          >
         </ion-item>
       </ion-list>
     </ion-card-content>

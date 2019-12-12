@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Platform, AlertController } from "@ionic/angular";
+import { Platform, AlertController, NavController } from "@ionic/angular";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { JwtHelperService } from "@auth0/angular-jwt";
@@ -12,7 +12,12 @@ import { Application } from "../app/models/application";
 
 const TOKEN_KEY = "access_token";
 const USER_KEY = "user_data";
+const APP_KEY = "app_data";
+const STATIC_DATA_KEY = "static_data";
+
+const SCHOOL_KEY = "school_key";
 const DATA_KEY = "data_key";
+const PUSH_PLAYER_KEY = "push_player_key";
 
 @Injectable({
   providedIn: "root"
@@ -29,7 +34,8 @@ export class AuthenticationService {
     private storage: Storage,
     private plt: Platform,
     private alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private navCtrl: NavController
   ) {
     this.plt.ready().then(() => {
       this.checkToken();
@@ -55,26 +61,120 @@ export class AuthenticationService {
       return user;
     });
   }
+  //static data includes qualifcation, countries, degree etc
+  getStaticData() {
+    return this.storage.get(STATIC_DATA_KEY).then(data => {
+      return data;
+    });
+  }
+
+  getPushPlayerId() {
+    return this.storage.get(PUSH_PLAYER_KEY).then(id => {
+      return id;
+    });
+  }
+
+  getSchool() {
+    return this.storage.get(USER_KEY).then(user => {
+      return user;
+    });
+  }
+
+  getApplication() {
+    return this.storage.get(APP_KEY).then(app => {
+      return app;
+    });
+  }
   getData() {
     return this.storage.get(DATA_KEY).then(data => {
+      return data;
+    });
+  }
+  getPush() {
+    return this.storage.get(PUSH_PLAYER_KEY).then(data => {
       return data;
     });
   }
   saveData(data) {
     this.storage.set(DATA_KEY, data);
   }
-  login(username, password): Observable<any> {
+  savePush(pushId) {
+    this.storage.set(PUSH_PLAYER_KEY, pushId);
+  }
+  getMessages(user): Observable<any> {
+    return this.http
+      .post(this.baseUrl + "/user/getMessageByUser", {
+        user: user
+      })
+      .pipe(
+        tap((results: any) => {
+          return results.data;
+        }),
+        catchError(e => {
+          console.log(e.error.msg);
+          throw new Error(e);
+        })
+      );
+  }
+  markMessageAsRead(messageId): Observable<any> {
+    return this.http
+      .post(this.baseUrl + "/user/markAsRead", {
+        messageId: messageId
+      })
+      .pipe(
+        tap((results: any) => {
+          return results;
+        }),
+        catchError(e => {
+          throw new Error(e);
+        })
+      );
+  }
+  compose(message, subject, senderId): Observable<any> {
+    return this.http
+      .post(this.baseUrl + "/user/sendAdminMessage", {
+        message: message,
+        subject: subject,
+        userId: senderId
+      })
+      .pipe(
+        tap((results: any) => {
+          return results;
+        }),
+        catchError(e => {
+          throw new Error(e);
+        })
+      );
+  }
+  sentMessages(userId): Observable<any> {
+    return this.http
+      .post(this.baseUrl + "/user/getSentMessages", {
+        userId: userId
+      })
+      .pipe(
+        tap((results: any) => {
+          return results;
+        }),
+        catchError(e => {
+          throw new Error(e);
+        })
+      );
+  }
+  login(username, password, pushId): Observable<any> {
     return this.http
       .post(this.baseUrl + "/user/mobileLogin", {
         username: username,
-        password: password
+        password: password,
+        pushId: pushId
       })
       .pipe(
         tap(results => {
           this.storage.set(TOKEN_KEY, results["token"]);
           this.storage.set(USER_KEY, results["user"]);
+          this.storage.set(APP_KEY, results["app"]);
           this.user = this.helper.decodeToken(results["token"]);
           this.authenticationState.next(true);
+
           return results;
         }),
         catchError(e => {
@@ -94,15 +194,23 @@ export class AuthenticationService {
         dob: app.dob,
         userId: app.userId,
         marital: app.marital,
-        gender: app.gender
+        gender: app.gender,
+        courseId: app.courseId
+        // course1: app.course1,
+        // course2: app.course2,
+        // schoolWish1: app.schoolWish1,
+        // schoolWish2: app.schoolWish2,
+        // cityId: app.cityId
+        //level: app.level
       })
       .pipe(
         tap(results => {
-          console.log(results);
+          let app = results["app"];
+          console.log(app);
+          if (app) this.storage.set(APP_KEY, app);
           return results;
         }),
         catchError(e => {
-          console.log(e.error.msg);
           throw new Error(e);
         })
       );
@@ -118,11 +226,12 @@ export class AuthenticationService {
       })
       .pipe(
         tap(results => {
-          console.log(results);
+          let app = results["app"];
+          if (app) this.storage.set(APP_KEY, app);
           return results;
         }),
         catchError(e => {
-          console.log(e.error.msg);
+          //console.log(e.error.msg);
           throw new Error(e);
         })
       );
@@ -143,16 +252,17 @@ export class AuthenticationService {
         pSchoolName: app.pSchoolName,
         pCompleted: app.pCompleted,
         pProgrammeYear: app.pProgrammeYear,
+        completionYr: app.completionYr,
         highSchoolName: app.highSchoolName,
         englishTest: app.englishTest
       })
       .pipe(
         tap(results => {
-          console.log(results);
+          let app = results["app"];
+          if (app) this.storage.set(APP_KEY, app);
           return results;
         }),
         catchError(e => {
-          console.log(e.error.msg);
           throw new Error(e);
         })
       );
@@ -165,20 +275,17 @@ export class AuthenticationService {
         budget: app.budget,
         sponsorOccupation: app.sponsorOccupation,
         userId: app.userId,
-        id: app.applicationId,
-        course1: app.course1,
-        course2: app.course2,
-        schoolWish1: app.schoolWish1,
-        schoolWish2: app.schoolWish2,
-        cityId: app.cityId
+        id: app.applicationId
       })
       .pipe(
         tap(results => {
-          console.log(results);
+          let app = results["app"];
+
+          if (app) this.storage.set(APP_KEY, app);
           return results;
         }),
         catchError(e => {
-          console.log(e.error.msg);
+          //console.log(e.error.msg);
           throw new Error(e);
         })
       );
@@ -186,6 +293,7 @@ export class AuthenticationService {
   form5(app: Application): Observable<any> {
     return this.http
       .post(this.baseUrl + "/application/mobileForm5", {
+        courseId: app.courseId,
         moreInfo: app.moreInfo,
         purpose: app.purpose,
         hasApplied: app.hasApplied,
@@ -195,11 +303,12 @@ export class AuthenticationService {
       })
       .pipe(
         tap(results => {
-          console.log(results);
+          let app = results["app"];
+          if (app) this.storage.set(APP_KEY, app);
           return results;
         }),
         catchError(e => {
-          console.log(e.error.msg);
+          //console.log(e.error.msg);
           throw new Error(e);
         })
       );
@@ -212,11 +321,12 @@ export class AuthenticationService {
       })
       .pipe(
         tap(results => {
-          console.log(results);
+          let app = results["app"];
+          if (app) this.storage.set(APP_KEY, app);
           return results;
         }),
         catchError(e => {
-          console.log(e.error.msg);
+          //console.log(e.error.msg);
           throw new Error(e);
         })
       );
@@ -231,15 +341,17 @@ export class AuthenticationService {
       .pipe(
         tap((results: any) => {
           if (results.success) {
+            this.storage.remove(APP_KEY);
             this.storage.set(TOKEN_KEY, results["token"]);
             this.user = this.helper.decodeToken(results["token"]);
+            this.storage.set(USER_KEY, results["user"]);
             this.authenticationState.next(true);
           }
 
           return results;
         }),
         catchError(e => {
-          console.log(e.error.msg);
+          //console.log(e.error.msg);
           throw new Error(e);
         })
       );
@@ -255,20 +367,25 @@ export class AuthenticationService {
           return results;
         }),
         catchError(e => {
-          console.log(e.error.msg);
+          //console.log(e.error.msg);
           throw new Error(e);
         })
       );
   }
   logout() {
-    this.storage.remove(TOKEN_KEY).then(() => {
-      this.authenticationState.next(false);
-      this.router.navigate(["/main/login"]);
+    this.storage.remove(USER_KEY).then(() => {
+      this.storage.remove(TOKEN_KEY).then(() => {
+        this.authenticationState.next(false);
+        this.navCtrl.navigateRoot("/main/landing");
+      });
     });
   }
   getSchools(): Observable<any> {
     return this.http.get(this.baseUrl + "/schoolsMobile").pipe(
       map(results => {
+        console.log(results["data"]);
+        this.storage.set(SCHOOL_KEY, results["data"]);
+
         return results["data"];
       })
     );
@@ -279,6 +396,7 @@ export class AuthenticationService {
       .post(this.baseUrl + "/application/mobileStep1", { userId: userId })
       .pipe(
         map(results => {
+          this.storage.set(STATIC_DATA_KEY, results);
           return results;
         })
       );

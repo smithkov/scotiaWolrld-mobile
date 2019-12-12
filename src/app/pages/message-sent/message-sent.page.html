@@ -1,0 +1,30 @@
+<style>
+  .msg {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Sent Messages</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen padding>
+  <ion-list>
+    <ion-list-header>
+      Sent Messages
+    </ion-list-header>
+    <ion-item *ngFor="let item of messages" (click)="read(item)">
+      <ion-label>
+        <h3>{{item.subject}}</h3>
+        <h5 slot="end">{{item.createdAt|date}}</h5>
+        <h6 class="msg">{{item.message}}</h6>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -17,7 +17,6 @@ import {
 import { FileChooser } from "@ionic-native/file-chooser/ngx";
 import { FilePath } from "@ionic-native/file-path/ngx";
 import { File } from "@ionic-native/file/ngx";
-import { environment } from "src/environments/environment.prod";
 
 @Component({
   selector: "app-first-form",
@@ -109,50 +108,23 @@ export class FirstFormPage implements OnInit {
           this.selectedFn = data.app.firstname;
           this.selectedMn = data.app.middlename;
           this.selectedLn = data.app.lastname;
+          let course = data.course;
 
-          // this.postalAddress = data.app.postalAddress;
-          // this.homeAddress = data.app.homeAddress;
-          // this.phone = data.app.phone;
-          // this.id = data.app.id;
-          // this.hQualificationSel = data.app.hQualification;
-          // this.hGrade = data.app.hGrade;
-          // this.hSchoolName = data.app.hSchoolName;
-          // this.hCompletedSel = data.app.hCompleted;
-          // this.hProgrammeYearSel = data.app.hProgrammeYear;
-
-          // this.pQualificationSel = data.app.pQualification;
-          // this.pGrade = data.app.pGrade;
-          // this.pSchoolName = data.app.pSchoolName;
-          // this.pCompletedSel = data.app.pCompleted;
-          // this.pProgrammeYearSel = data.app.pProgrammeYear;
-          // this.id = data.app.id;
-          // this.englishTestSel = data.app.englishTest;
-
-          // this.hasAppliedSel = data.app.hasApplied;
-          // this.purpose = data.app.purpose;
-          // this.reasonOfRefusal = data.app.reasonOfRefusal;
-          // this.moreInfo = data.app.moreInfo;
+          this.authenticationService.getData().then((data: any) => {
+            if (!data) {
+              this.data = course;
+              this.authenticationService.saveData(course);
+            } else {
+              this.data = data;
+            }
+          });
         }
       });
     });
-    this.authenticationService.getData().then((data: any) => {
-      this.data = data;
-    });
+    //this gets stored institution
   }
 
-  // showForm(
-  //   form1 = true,
-  //   form2 = false,
-  //   form3 = false,
-  //   form4 = false,
-  //   form5 = false
-  // ) {
-  //   this.isForm1 = form1;
-  //   this.isForm2 = form2;
-  //   this.isForm3 = form3;
-  //   this.isForm4 = form4;
-  //   this.isForm5 = form5;
-  // }
+  showForm() {}
   async showModal() {
     const modal = await this.modalCtrl.create({
       component: ModalPage
@@ -192,6 +164,7 @@ export class FirstFormPage implements OnInit {
   //   this.hasApplied = event.target.text;
   // }
   saveForm1(form: NgForm) {
+    let getCourse = this.data;
     this.loaderService.showLoader("Saving ...");
     let f = new Application();
     f.firstname = form.value.firstname;
@@ -202,6 +175,14 @@ export class FirstFormPage implements OnInit {
     f.gender = form.value.gender;
     f.dob = form.value.dob;
     f.countryId = form.value.countryId;
+    f.courseId = getCourse.id;
+    // f.course1 = getCourse.id;
+    // f.course2 = getCourse.name;
+    // f.schoolWish1 = getCourse.Institution.name;
+    // f.schoolWish2 = getCourse.Institution.name;
+    // f.level = getCourse.DegreeType.name;
+    // f.cityId = getCourse.Institution.cityId;
+
     f.applicationId = form.value.id;
     this.authenticationService.form1(f).subscribe(data => {
       if (!data.isError) {

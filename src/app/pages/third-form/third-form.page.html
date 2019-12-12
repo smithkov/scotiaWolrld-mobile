@@ -24,20 +24,12 @@
           name="hQualification"
           required
         >
-          <ion-select-option
-            *ngFor="let item of quali"
-            value="{{ item.name }}"
+          <ion-select-option *ngFor="let item of quali" value="{{ item.name }}"
             >{{ item.name }}</ion-select-option
           >
         </ion-select>
       </ion-item>
-      <ion-input
-        [(ngModel)]="id"
-        type="hidden"
-        name="id"
-        ngModel
-        required
-      ></ion-input>
+      <ion-input [(ngModel)]="id" type="hidden" name="id" ngModel></ion-input>
       <ion-item>
         <ion-label position="stacked"
           >Qualification Grade <ion-text color="danger">*</ion-text></ion-label
@@ -102,9 +94,7 @@
           (ionChange)="getPQuali($event)"
           name="pQualification"
         >
-          <ion-select-option
-            *ngFor="let item of quali"
-            value="{{ item.name }}"
+          <ion-select-option *ngFor="let item of quali" value="{{ item.name }}"
             >{{ item.name }}</ion-select-option
           >
         </ion-select>
@@ -157,6 +147,28 @@
           (ionChange)="getPYear($event)"
           placeholder="Programme Year"
           name="pProgrammeYear"
+          displayFormat="YYYY"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked"
+          >High School Name <ion-text color="danger">*</ion-text></ion-label
+        >
+        <ion-input
+          [(ngModel)]="highSchoolName"
+          name="highSchoolName"
+          type="text"
+          placeholder="High School Name"
+          ngModel
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Programme Year</ion-label>
+        <ion-datetime
+          [(ngModel)]="highSchoolComletionYrSel"
+          (ionChange)="getHighSchoolYear($event)"
+          placeholder="Programme Year"
+          name="completionYr"
           displayFormat="YYYY"
         ></ion-datetime>
       </ion-item>
