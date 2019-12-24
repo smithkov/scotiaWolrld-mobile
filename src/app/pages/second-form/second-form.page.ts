@@ -18,6 +18,7 @@ export class SecondFormPage implements OnInit {
   postalAddress: any;
   homeAddress: any;
   phone: any;
+  contactEmail: any;
   id: any;
   userId: any;
   data: any;
@@ -32,6 +33,7 @@ export class SecondFormPage implements OnInit {
   ngOnInit() {
     this.authenticationService.getCurrentUser().then(e => {
       this.userId = e.id;
+      this.contactEmail = e.email;
       this.authenticationService.getApplication().then(app => {
         if (app) {
           this.postalAddress = app.postalAddress;
@@ -52,7 +54,6 @@ export class SecondFormPage implements OnInit {
     });
     modal.onDidDismiss().then(dataReturned => {
       if (dataReturned.data !== undefined) {
-        console.log(dataReturned);
         this.data = dataReturned.data;
       }
     });
@@ -64,15 +65,22 @@ export class SecondFormPage implements OnInit {
     f.homeAddress = form.value.homeAddress;
     f.postalAddress = form.value.postalAddress;
     f.phone = form.value.phone;
+    f.contactEmail = form.value.contactEmail;
     f.applicationId = form.value.id;
     f.userId = this.userId;
-    this.authenticationService.form2(f).subscribe(data => {
-      this.loaderService.hideLoader();
-      if (!data.isError) {
-        this.router.navigate(["/pages/thirdForm"]);
-      } else {
-        this.alertService.presentToast("Something went wrong!");
+    this.authenticationService.form2(f).subscribe(
+      data => {
+        this.loaderService.hideLoader();
+        if (!data.isError) {
+          this.router.navigate(["/pages/thirdForm"]);
+        } else {
+          this.alertService.presentToast("Something went wrong!");
+        }
+      },
+      error => {
+        this.loaderService.hideLoader();
+        this.alertService.presentToast("Server not available");
       }
-    });
+    );
   }
 }

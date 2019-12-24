@@ -23,20 +23,20 @@
       />
     </div>
     <div class="ion-text-center">
-      <h5>Upload a merged required PDF document.</h5>
+      <h5>Upload a merged PDF file.</h5>
     </div>
 
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <div class="ion-padding">
-        <ion-button (click)="pickFile()" expand="full" color="dark"
-          >Browse <ion-icon></ion-icon
+        <ion-button (click)="pickFile()" expand="full" color="primary"
+          >Browse <ion-icon name="cloud-upload"></ion-icon
         ></ion-button>
       </div>
       <div *ngIf="isPdf">
         <div (click)="viewPdf()" text-center>
           <img src="assets/icon/pdf.png" alt="Logo" title="Logo" />
         </div>
-        <ion-button (click)="upload()" expand="full" color="primary"
+        <ion-button (click)="upload()" class="ion-no-margin" color="primary"
           >Upload <ion-icon></ion-icon
         ></ion-button>
       </div>

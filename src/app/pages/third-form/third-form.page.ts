@@ -25,8 +25,8 @@ export class ThirdFormPage implements OnInit {
   hCompletedSel: any;
   completionYr: any;
   hProgrammeYearSel: any;
-  highSchoolComletionYrSel: any;
-  highSchoolName: any;
+  //highSchoolComletionYrSel: any;
+  //highSchoolName: any;
   hCompleted: any;
   hProgrammeYear: any;
   data: any;
@@ -64,8 +64,8 @@ export class ThirdFormPage implements OnInit {
           this.hSchoolName = app.hSchoolName;
           this.hCompletedSel = app.hCompleted;
           this.hProgrammeYearSel = app.hProgrammeYear;
-          this.highSchoolComletionYrSel = app.completionYr;
-          this.highSchoolName = app.highSchoolName;
+          //this.highSchoolComletionYrSel = app.completionYr;
+          //this.highSchoolName = app.highSchoolName;
 
           this.pQualificationSel = app.pQualification;
           this.pGrade = app.pGrade;
@@ -86,9 +86,9 @@ export class ThirdFormPage implements OnInit {
     this.hQualification = event.target.text;
   }
 
-  getHighSchoolYear(event) {
-    this.completionYr = event.target.text;
-  }
+  // getHighSchoolYear(event) {
+  //   this.completionYr = event.target.text;
+  // }
   getHProgramme(event) {
     this.hCompleted = event.target.text;
   }
@@ -128,8 +128,8 @@ export class ThirdFormPage implements OnInit {
     f.hGrade = form.value.hGrade;
     f.hSchoolName = form.value.hSchoolName;
     f.hProgrammeYear = form.value.hProgrammeYear;
-    f.completionYr = form.value.completionYr;
-    f.highSchoolName = form.value.highSchoolName;
+    //f.completionYr = form.value.completionYr;
+    //f.highSchoolName = form.value.highSchoolName;
 
     f.pCompleted = form.value.pCompleted;
     f.pQualification = form.value.pQualification;
@@ -147,6 +147,10 @@ export class ThirdFormPage implements OnInit {
       } else {
         this.alertService.presentToast("Something went wrong!");
       }
-    });
+    },
+        error => {
+          this.loaderService.hideLoader();
+          this.alertService.presentToast("Server not available");
+        });
   }
 }

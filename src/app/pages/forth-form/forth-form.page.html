@@ -16,7 +16,10 @@
   <form #form="ngForm" (ngSubmit)="save(form)" method="post">
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <ion-item>
-        <ion-label>Have you applied for a UK VISA before?</ion-label>
+        <ion-label
+          >Have You Applied For A UK VISA Before?
+          <ion-text color="danger">*</ion-text></ion-label
+        >
         <ion-select
           required
           [(ngModel)]="hasAppliedSel"
@@ -33,12 +36,12 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">If yes, purpose of travel</ion-label>
+        <ion-label position="floating">If Yes, Purpose Of Travel</ion-label>
         <ion-textarea [(ngModel)]="purpose" name="purpose"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label position="floating"
-          >If visa refused, reasons of visa refusal</ion-label
+          >If Visa Refused, Reasons Of Visa Refusal</ion-label
         >
         <ion-textarea
           [(ngModel)]="reasonOfRefusal"
@@ -57,7 +60,7 @@
       class="ion-padding"
       *ngIf="data"
     >
-      <ion-card-header>
+      <ion-card-header class="ion-text-center">
         <ion-card-subtitle>{{ data.name }}</ion-card-subtitle>
         <ion-card-title>{{ data.Institution.name }}</ion-card-title>
       </ion-card-header>
@@ -72,8 +75,8 @@
           [disabled]="form.invalid"
           type="submit"
           class="ion-no-margin"
-          >Save</ion-button
-        >
+          >Save & Continue <ion-icon name="save"></ion-icon
+        ></ion-button>
       </div>
     </ion-toolbar>
   </form>

@@ -9,6 +9,7 @@ export class Application {
   marital: any;
   userId: any;
   homeAddress: any;
+  contactEmail: any;
   postalAddress: any;
   phone: any;
   hQualification: any;

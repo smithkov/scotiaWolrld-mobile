@@ -33,13 +33,13 @@ export class AppComponent {
       if (this.platform.is("cordova")) {
         this.setupPush();
       }
-      // this.authenticationService.authenticationState.subscribe(state => {
-      //   if (state) {
-      //     this.router.navigate(["pages/dashboard"]);
-      //   } else {
-      //     this.router.navigate(["main/landing"]);
-      //   }
-      // });
+      this.authenticationService.authenticationState.subscribe(state => {
+        if (state) {
+          this.router.navigate(["pages/dashboard"]);
+        } else {
+          this.router.navigate(["main/landing"]);
+        }
+      });
     });
   }
 

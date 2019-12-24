@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: "", redirectTo: "/main/landing", pathMatch: "full" },
   { path: "main", loadChildren: "./auth/main/main.module#MainPageModule" },
   { path: "pages", loadChildren: "./pages/menu/menu.module#MenuPageModule" }
+  
 ];
 
 @NgModule({

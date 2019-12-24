@@ -221,6 +221,7 @@ export class AuthenticationService {
         homeAddress: app.homeAddress,
         id: app.applicationId,
         userId: app.userId,
+        contactEmail: app.contactEmail,
         postalAddress: app.postalAddress,
         phone: app.phone
       })
@@ -228,6 +229,26 @@ export class AuthenticationService {
         tap(results => {
           let app = results["app"];
           if (app) this.storage.set(APP_KEY, app);
+          return results;
+        }),
+        catchError(e => {
+          //console.log(e.error.msg);
+          throw new Error(e);
+        })
+      );
+  }
+  removeApplication(app: Application): Observable<any> {
+    return this.http
+      .put(
+        this.baseUrl + `/application/removeApplication/${app.applicationId}`,
+        {
+          userId: app.userId
+        }
+      )
+      .pipe(
+        tap(results => {
+          let error = results["error"];
+          if (!error) this.storage.set(APP_KEY, null);
           return results;
         }),
         catchError(e => {
@@ -390,7 +411,19 @@ export class AuthenticationService {
       })
     );
   }
-
+  paginatedCourse(offset, limit, val): Observable<any> {
+    return this.http
+      .post(this.baseUrl + "/courseListingMobile", {
+        offsetData: offset,
+        limitData: limit,
+        searchParam: val
+      })
+      .pipe(
+        map(results => {
+          return results["data"];
+        })
+      );
+  }
   formOne(userId): Observable<any> {
     return this.http
       .post(this.baseUrl + "/application/mobileStep1", { userId: userId })

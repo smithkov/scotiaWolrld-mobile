@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>All Courses</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen padding>
+  <ion-searchbar
+    placeholder="Search by course name"
+    (ionInput)="getFilter($event)"
+  ></ion-searchbar>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-item (click)="courseDetail(item)" *ngFor="let item of results">
+      <ion-avatar slot="start">
+        <img src="{{ avatarUrl }}{{ item.path }}" />
+      </ion-avatar>
+      <ion-label>
+        <h2 class="ion-text-wrap">{{ item.name }}</h2>
+        <h3>{{ item.fee }} | {{item.DegreeType.name}}</h3>
+        <p>{{item.Institution.name}}</p>
+
+        <p></p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

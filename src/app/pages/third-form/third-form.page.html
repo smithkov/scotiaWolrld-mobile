@@ -58,7 +58,9 @@
       </ion-item>
 
       <ion-item>
-        <ion-label>Programme Completed</ion-label>
+        <ion-label
+          >Programme Completed <ion-text color="danger">*</ion-text></ion-label
+        >
         <ion-select
           required
           [(ngModel)]="hCompletedSel"
@@ -75,11 +77,14 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label>Programme Year</ion-label>
+        <ion-label
+          >Programme Year <ion-text color="danger">*</ion-text></ion-label
+        >
         <ion-datetime
           [(ngModel)]="hProgrammeYearSel"
           (ionChange)="getHYear($event)"
           placeholder="Programme Year"
+          required
           name="hProgrammeYear"
           displayFormat="YYYY"
         ></ion-datetime>
@@ -88,7 +93,6 @@
       <ion-item>
         <ion-label>Previous Qualification</ion-label>
         <ion-select
-          required
           [(ngModel)]="pQualificationSel"
           [selectedText]="pQualificationSel"
           (ionChange)="getPQuali($event)"
@@ -100,9 +104,7 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked"
-          >Qualification grade <ion-text color="danger">*</ion-text></ion-label
-        >
+        <ion-label position="stacked">Qualification Grade </ion-label>
         <ion-input
           [(ngModel)]="pGrade"
           name="pGrade"
@@ -112,9 +114,7 @@
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked"
-          >Institution Name <ion-text color="danger">*</ion-text></ion-label
-        >
+        <ion-label position="stacked">Institution Name </ion-label>
         <ion-input
           [(ngModel)]="pSchoolName"
           name="pSchoolName"
@@ -150,7 +150,7 @@
           displayFormat="YYYY"
         ></ion-datetime>
       </ion-item>
-      <ion-item>
+      <!-- <ion-item>
         <ion-label position="stacked"
           >High School Name <ion-text color="danger">*</ion-text></ion-label
         >
@@ -163,17 +163,22 @@
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Programme Year</ion-label>
+        <ion-label
+          >Programme Year <ion-text color="danger">*</ion-text></ion-label
+        >
         <ion-datetime
           [(ngModel)]="highSchoolComletionYrSel"
           (ionChange)="getHighSchoolYear($event)"
           placeholder="Programme Year"
           name="completionYr"
+          required
           displayFormat="YYYY"
         ></ion-datetime>
-      </ion-item>
+      </ion-item> -->
       <ion-item>
-        <ion-label>English Test</ion-label>
+        <ion-label
+          >English Test <ion-text color="danger">*</ion-text></ion-label
+        >
         <ion-select
           [(ngModel)]="englishTestSel"
           [selectedText]="englishTestSel"
@@ -202,7 +207,7 @@
       class="ion-padding"
       *ngIf="data"
     >
-      <ion-card-header>
+      <ion-card-header class="ion-text-center">
         <ion-card-subtitle>{{ data.name }}</ion-card-subtitle>
         <ion-card-title>{{ data.Institution.name }}</ion-card-title>
       </ion-card-header>
@@ -217,8 +222,8 @@
           [disabled]="form.invalid"
           type="submit"
           class="ion-no-margin"
-          >Save</ion-button
-        >
+          >Save & Continue <ion-icon name="save"></ion-icon
+        ></ion-button>
       </div>
     </ion-toolbar>
   </form>

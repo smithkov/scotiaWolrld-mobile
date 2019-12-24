@@ -1,8 +1,9 @@
+let innerUrl ="https://scotstudy.co.uk"
 export const environment = {
   production: true,
   // url: "http://localhost:3000",
-  url: "https://scotstudy.co.uk/",
-  avatarUrl: `https://scotstudy.co.uk/uploads/`,
-  photoUrl: `https://scotstudy.co.uk/photos/`,
-  defaultPhoto: `https://scotstudy.co.uk/photos/no_photo.jpg`
+  url: innerUrl,
+  avatarUrl: `${innerUrl}/uploads/`,
+  photoUrl: `${innerUrl}/photos/`,
+  defaultPhoto: `${innerUrl}/photos/no_photo.jpg`
 };

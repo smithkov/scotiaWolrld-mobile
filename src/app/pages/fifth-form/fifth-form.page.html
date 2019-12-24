@@ -50,7 +50,6 @@
           name="sponsorName"
           type="text"
           placeholder="Sponsor's Name"
-         
           required
         ></ion-input>
       </ion-item>
@@ -63,7 +62,6 @@
           name="sponsorOccupation"
           type="text"
           placeholder="Sponsor's Occupation"
-          
           required
         ></ion-input>
       </ion-item>
@@ -74,9 +72,8 @@
         <ion-input
           [(ngModel)]="budget"
           name="budget"
-          type="text"
+          type="number"
           placeholder="Budget"
-          
           required
         ></ion-input>
       </ion-item>
@@ -87,7 +84,7 @@
       class="ion-padding"
       *ngIf="data"
     >
-      <ion-card-header>
+      <ion-card-header class="ion-text-center">
         <ion-card-subtitle>{{ data.name }}</ion-card-subtitle>
         <ion-card-title>{{ data.Institution.name }}</ion-card-title>
       </ion-card-header>
@@ -102,8 +99,8 @@
           [disabled]="form.invalid"
           type="submit"
           class="ion-no-margin"
-          >Save</ion-button
-        >
+          >Save & Continue <ion-icon name="save"></ion-icon
+        ></ion-button>
       </div>
     </ion-toolbar>
   </form>

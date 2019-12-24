@@ -1,0 +1,11 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "Scot-Study",
+  "short_name": "Scot-Study",
+  "version": "io.scotStudy.softnergy",
+  "description": "An awesome Ionic/Cordova app.",
+  "author": "Ionic Framework Team",
+  "icons": [],
+  "start_url": "index.html"
+}

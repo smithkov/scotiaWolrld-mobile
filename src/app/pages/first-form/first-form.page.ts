@@ -109,14 +109,12 @@ export class FirstFormPage implements OnInit {
           this.selectedMn = data.app.middlename;
           this.selectedLn = data.app.lastname;
           let course = data.course;
-
+          //caches course to data
+          this.data = course;
+          this.authenticationService.saveData(course);
+        } else {
           this.authenticationService.getData().then((data: any) => {
-            if (!data) {
-              this.data = course;
-              this.authenticationService.saveData(course);
-            } else {
-              this.data = data;
-            }
+            this.data = data;
           });
         }
       });
@@ -192,6 +190,10 @@ export class FirstFormPage implements OnInit {
       } else {
         this.alertService.presentToast("Something went wrong!");
       }
+    },
+    error => {
+      this.loaderService.hideLoader();
+      this.alertService.presentToast("Server not available");
     });
   }
   // saveForm2(form: NgForm) {

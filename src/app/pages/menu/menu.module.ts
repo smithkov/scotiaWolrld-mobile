@@ -99,6 +99,9 @@ const routes: Routes = [
         path: "viewApplication",
         loadChildren:
           "../application-view/application-view.module#ApplicationViewPageModule"
+      },
+      { path: "coursenew", 
+        loadChildren: "../coursenew/coursenew.module#CoursenewPageModule"
       }
     ]
   }

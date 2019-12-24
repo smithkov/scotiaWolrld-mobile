@@ -28,12 +28,13 @@
   </section>
   <section *ngIf="isApply">
     <ion-button
-      routerLink="/pages/university"
+      routerLink="/pages/coursenew"
       routerDirection="forward"
       expand="block"
       >APPLY</ion-button
     >
   </section>
+
   <section *ngIf="isShowContBtn">
     <ion-button
       routerLink="/pages/form"
@@ -49,6 +50,9 @@
       expand="block"
       >View Application</ion-button
     >
+  </section>
+  <section (click)="remove()" *ngIf="hasApplied">
+    <ion-button color="danger" expand="block">DELETE APPLICATION </ion-button>
   </section>
   <ion-grid>
     <ion-row>

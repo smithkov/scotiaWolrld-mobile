@@ -1,19 +1,21 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
+let innerUrl = "http://localhost:3000";
+// let innerUrl ="https://scotstudy.co.uk"
 export const environment = {
   production: false,
-  url: "https://scotstudy.co.uk",
+  url: innerUrl,
   // //url: "https://thescotiaworld.co.uk",
-  avatarUrl: `https://scotstudy.co.uk/uploads/`,
-  photoUrl: `https://scotstudy.co.uk/photos/`,
-  defaultPhoto: `https://scotstudy.co.uk/photos/no_photo.jpg`
+  avatarUrl: `${innerUrl}/uploads/`,
+  photoUrl: `${innerUrl}/photos/`,
+  defaultPhoto: `${innerUrl}/photos/no_photo.jpg`
   //url: "http://localhost:3000",
   //url: "https://thescotiaworld.co.uk",
   //avatarUrl: `http://localhost:3000/uploads/`,
   //photoUrl: `http://localhost:3000/photos/`
 };
+// let innerUrl ="https://scotstudy.co.uk"
 
 /*
  * For easier debugging in development mode, you can import the following file

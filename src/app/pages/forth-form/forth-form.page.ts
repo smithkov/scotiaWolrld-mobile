@@ -81,6 +81,10 @@ export class ForthFormPage implements OnInit {
       } else {
         this.alertService.presentToast("Something went wrong!");
       }
-    });
+    },
+        error => {
+          this.loaderService.hideLoader();
+          this.alertService.presentToast("Server not available");
+        });
   }
 }

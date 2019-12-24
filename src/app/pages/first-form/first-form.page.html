@@ -30,9 +30,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked"
-          >Middle Name <ion-text color="danger"></ion-text
-        ></ion-label>
+        <ion-label position="stacked">Middle Name </ion-label>
         <ion-input
           [(ngModel)]="selectedMn"
           name="middlename"
@@ -58,7 +56,7 @@
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Nationality</ion-label>
+        <ion-label>Nationality <ion-text color="danger">*</ion-text></ion-label>
         <ion-select
           [(ngModel)]="selected"
           [selectedText]="selected"
@@ -74,7 +72,9 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label>Date of Birth</ion-label>
+        <ion-label
+          >Date of Birth <ion-text color="danger">*</ion-text></ion-label
+        >
         <ion-datetime
           [ngModel]="selectedDOB"
           (ionChange)="getDOB($event)"
@@ -85,7 +85,7 @@
         ></ion-datetime>
       </ion-item>
       <ion-item>
-        <ion-label>Gender</ion-label>
+        <ion-label>Gender <ion-text color="danger">*</ion-text></ion-label>
         <ion-select
           [(ngModel)]="selectedGender"
           (ionChange)="getGender($event)"
@@ -101,7 +101,9 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label>Marital Status</ion-label>
+        <ion-label
+          >Marital Status <ion-text color="danger">*</ion-text></ion-label
+        >
         <ion-select
           [(ngModel)]="selectedMarital"
           (ionChange)="getMarital($event)"
@@ -123,7 +125,7 @@
       class="ion-padding"
       *ngIf="data"
     >
-      <ion-card-header>
+      <ion-card-header class="ion-text-center">
         <ion-card-subtitle>{{ data.name }}</ion-card-subtitle>
         <ion-card-title>{{ data.Institution.name }}</ion-card-title>
       </ion-card-header>
@@ -139,8 +141,8 @@
           [disabled]="form.invalid"
           type="submit"
           class="ion-no-margin"
-          >Save</ion-button
-        >
+          >Save & Continue <ion-icon name="save"></ion-icon
+        ></ion-button>
       </div>
     </ion-toolbar>
   </form>

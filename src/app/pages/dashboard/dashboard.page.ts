@@ -2,6 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { AuthenticationService } from "../../authentication.service";
 import { environment } from "../../../environments/environment";
 import { Storage } from "@ionic/storage";
+import { AlertController, NavController } from "@ionic/angular";
+import { AlertServiceService } from "./../../alert-service.service";
+import { Application } from "../../models/application";
+import { LoaderServiceService } from "./../../loader-service.service";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-dashboard",
@@ -21,12 +26,13 @@ export class DashboardPage implements OnInit {
   isShowContBtn: Boolean;
   hasSubmittedBool: Boolean = false;
   isApply: any = true;
+  hasApplied = false;
   decision: any;
   hasRejected: Boolean;
   isShowNotificationIcon: any;
   totalNumUnread: any;
   messages: any;
-
+  userId: any;
   eligibilityCheck: any;
   reqProvision: any;
   hasFinalSubmit: any;
@@ -34,13 +40,24 @@ export class DashboardPage implements OnInit {
   hasDecided: any;
   hasPaid: any;
   hasCas: any;
+  applicationId: any;
   constructor(
     private auth: AuthenticationService,
     private storage: Storage,
+    private loaderService: LoaderServiceService,
+    public alertController: AlertController,
+    public alertService: AlertServiceService,
+    public router: Router,
+    private navCtrl: NavController,
     public authenticationService: AuthenticationService
-  ) {
+  ) {}
+  ngOnInit() {
+    this.initialLoad();
+  }
+  initialLoad() {
     this.authenticationService.getCurrentUser().then((user: any) => {
       this.username = user.username;
+      this.userId = user.id;
       this.authenticationService.getMessages(user).subscribe(msg => {
         this.messages = msg.data;
         this.totalNumUnread = this.getUnread();
@@ -49,6 +66,8 @@ export class DashboardPage implements OnInit {
     });
     this.authenticationService.getApplication().then(data => {
       if (data) {
+        this.applicationId = data.id;
+        this.hasApplied = true;
         this.hasSubmittedBool = data.hasSubmitted;
         this.hasSubmitted = data.hasSubmitted
           ? this.acceptedImg
@@ -92,14 +111,56 @@ export class DashboardPage implements OnInit {
       }
     });
   }
+  async remove() {
+    const alert = await this.alertController.create({
+      header: "Application Deletion!",
+      message: "Do you wish to delete the current application?",
+      buttons: [
+        {
+          text: "No",
+          role: "no",
+          cssClass: "secondary",
+          handler: blah => {
+            console.log("Confirm Cancel: blah");
+          }
+        },
+        {
+          text: "Yes",
+          handler: () => {
+            this.loaderService.showLoader("Removing ...");
+            let f = new Application();
+            f.applicationId = this.applicationId;
+            f.userId = this.userId;
+            this.authenticationService.removeApplication(f).subscribe(
+              result => {
+                this.loaderService.hideLoader();
+
+                if (result.error) {
+                  this.alertService.presentToast(
+                    "Could not remove application"
+                  );
+                } else {
+                  this.alertService.presentToast("Removed successfully");
+                  this.navCtrl.navigateRoot("/main/landing");
+                }
+              },
+              error => {
+                this.alertService.presentToast("Could not remove application");
+                this.loaderService.hideLoader();
+              }
+            );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 
   logout() {
     this.auth.logout();
   }
   getUnread() {
     return this.messages.filter(x => !x.hasRead).length;
-  }
-  ngOnInit() {
-    this;
   }
 }
