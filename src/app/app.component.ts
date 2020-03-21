@@ -37,7 +37,7 @@ export class AppComponent {
         if (state) {
           this.router.navigate(["pages/dashboard"]);
         } else {
-          this.router.navigate(["main/landing"]);
+          this.router.navigate(["main/welcome"]);
         }
       });
     });

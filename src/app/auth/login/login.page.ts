@@ -8,6 +8,7 @@ import {
 import { AuthenticationService } from "./../../authentication.service";
 import { AlertServiceService } from "./../../alert-service.service";
 import { LoaderServiceService } from "./../../loader-service.service";
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 @Component({
   selector: "app-login",
   templateUrl: "./login.page.html",
@@ -21,7 +22,8 @@ export class LoginPage implements OnInit {
     private loaderService: LoaderServiceService,
     public authenticationService: AuthenticationService,
     public loadingController: LoadingController,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
+    private iab: InAppBrowser
   ) {
     this.authenticationService.getPush().then(pushId => {
       this.pushId = pushId;
@@ -29,15 +31,19 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {}
-
+  forgot(){
+    const browser = this.iab.create('https://scotstudy.co.uk/forgot');
+  }
   login(form: NgForm) {
     this.loaderService.showLoader("Signing in ...");
     this.authenticationService
       .login(form.value.username, form.value.password, this.pushId)
       .subscribe(
         data => {
+          
           this.loaderService.hideLoader();
           if (data.success) {
+            
             this.navCtrl.navigateRoot("/pages/dashboard");
           } else {
             this.alertService.presentToast("Invalid login!");

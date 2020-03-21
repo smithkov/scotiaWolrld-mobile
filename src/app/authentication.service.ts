@@ -169,11 +169,14 @@ export class AuthenticationService {
       })
       .pipe(
         tap(results => {
-          this.storage.set(TOKEN_KEY, results["token"]);
-          this.storage.set(USER_KEY, results["user"]);
-          this.storage.set(APP_KEY, results["app"]);
-          this.user = this.helper.decodeToken(results["token"]);
-          this.authenticationState.next(true);
+          let isAuth = results["success"];
+          if (isAuth) {
+            this.storage.set(TOKEN_KEY, results["token"]);
+            this.storage.set(USER_KEY, results["user"]);
+            this.storage.set(APP_KEY, results["app"]);
+            this.user = this.helper.decodeToken(results["token"]);
+            this.authenticationState.next(true);
+          }
 
           return results;
         }),

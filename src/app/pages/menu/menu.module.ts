@@ -100,7 +100,8 @@ const routes: Routes = [
         loadChildren:
           "../application-view/application-view.module#ApplicationViewPageModule"
       },
-      { path: "coursenew", 
+      {
+        path: "coursenew",
         loadChildren: "../coursenew/coursenew.module#CoursenewPageModule"
       }
     ]
@@ -116,4 +117,4 @@ const routes: Routes = [
   ],
   declarations: [MenuPage]
 })
-export class MenuPageModule {}
+export class MenuPageModule { }

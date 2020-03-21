@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.scotStudy.softnergylimited" version="0.2.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.scotStudy.softnergylimited" version="0.2.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Scot-Study</name>
     <description>An application for Scottish Universities</description>
     <author email="nnwosu@softnergy.com" href="http://ionicframework.com/">Nnamdi Nwosu</author>

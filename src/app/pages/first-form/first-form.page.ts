@@ -96,6 +96,7 @@ export class FirstFormPage implements OnInit {
     this.authenticationService.getCurrentUser().then(e => {
       this.userId = e.id;
       this.authenticationService.formOne(e.id).subscribe(data => {
+        console.log(data)
         this.loaderService.hideLoader();
         this.country = data.countries;
         if (data.app) {
