@@ -35,7 +35,7 @@ export class SecondFormPage implements OnInit {
       this.userId = e.id;
       this.contactEmail = e.email;
       this.authenticationService.getApplication().then(app => {
-        if (app) {
+        if (app) {    
           this.postalAddress = app.postalAddress;
           this.homeAddress = app.homeAddress;
           this.phone = app.phone;
@@ -66,8 +66,9 @@ export class SecondFormPage implements OnInit {
     f.postalAddress = form.value.postalAddress;
     f.phone = form.value.phone;
     f.contactEmail = form.value.contactEmail;
-    f.applicationId = form.value.id;
+    f.applicationId = this.id;
     f.userId = this.userId;
+    console.log("id---------------------", this.id)
     this.authenticationService.form2(f).subscribe(
       data => {
         this.loaderService.hideLoader();
@@ -81,6 +82,6 @@ export class SecondFormPage implements OnInit {
         this.loaderService.hideLoader();
         this.alertService.presentToast("Server not available");
       }
-    );
+    ), (err) => {this.loaderService.hideLoader()};
   }
 }

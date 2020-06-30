@@ -1,0 +1,160 @@
+<style>
+  #msgBadge {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius: 100%;
+  }
+  #msgContainer {
+    position: relative;
+
+    overflow: visible !important;
+  }
+</style>
+<ion-header>
+  <ion-toolbar color="primary" translucent>
+    <ion-buttons slot="start"><ion-menu-button></ion-menu-button></ion-buttons>
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <section text-center margin-bottom>
+    <h1 style="font-size:1.4em" no-margin>
+      Welcome, <br />
+      {{ username }}
+    </h1>
+  </section>
+  <section *ngIf="isApply">
+    <ion-button
+      routerLink="/pages/coursenew"
+      routerDirection="forward"
+      expand="block"
+      >APPLY</ion-button
+    >
+  </section>
+
+  <section *ngIf="isShowContBtn">
+    <ion-button
+      routerLink="/pages/form"
+      routerDirection="forward"
+      expand="block"
+      >CONTINUE</ion-button
+    >
+  </section>
+  <section *ngIf="hasSubmittedBool">
+    <ion-button
+      routerLink="/pages/viewApplication"
+      routerDirection="forward"
+      expand="block"
+      >View Application</ion-button
+    >
+  </section>
+  <section (click)="remove()" *ngIf="hasApplied">
+    <ion-button color="danger" expand="block">DELETE APPLICATION </ion-button>
+  </section>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6>
+        <ion-card
+          routerLink="/pages/setting"
+          routerDirection="forward"
+          text-center
+          padding
+          color="primary"
+        >
+          <ion-icon size="large" name="settings"></ion-icon>
+          <ion-card-subtitle>Settings</ion-card-subtitle>
+        </ion-card>
+      </ion-col>
+
+      <ion-col col-6>
+        <ion-card
+          routerLink="/pages/messages"
+          routerDirection="forward"
+          id="msgContainer"
+          text-center
+          padding
+          color="primary"
+        >
+          <ion-badge id="msgBadge" *ngIf="isShowNotificationIcon" color="danger"
+            >{{totalNumUnread}}
+          </ion-badge>
+          <ion-icon size="large" name="chatboxes"></ion-icon>
+          <ion-card-subtitle>Inbox</ion-card-subtitle>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list *ngIf="hasLoaded">
+    <ion-item>
+      <img
+        style="height: 30px; width:30px;"
+        slot="start"
+        src="{{hasSubmitted}}"
+      />
+      <ion-label>Form Submission </ion-label>
+    </ion-item>
+    <ion-item>
+      <img
+        style="height: 30px; width:30px;"
+        slot="start"
+        src="{{eligibilityCheck}}"
+      />
+      <ion-label>Eligibility Check </ion-label>
+    </ion-item>
+    <ion-item>
+      <img
+        style="height: 30px; width:30px;"
+        slot="start"
+        src="{{reqProvision}}"
+      />
+      <ion-label>Requirement Provision </ion-label>
+    </ion-item>
+    <ion-item>
+      <img
+        style="height: 30px; width:30px;"
+        slot="start"
+        src="{{hasFinalSubmit}}"
+      />
+      <ion-label>Application Submission </ion-label>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label><h2>Decision</h2></ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <img
+        style="height: 30px; width:30px;"
+        slot="start"
+        src="{{underReview}}"
+      />
+      <ion-label>Under Review </ion-label>
+    </ion-item>
+    <ion-item *ngIf="!decision">
+      <img
+        style="height: 30px; width:30px;"
+        slot="start"
+        src="{{pendingImg2}}"
+      />
+      <ion-label>Application Status : Pending </ion-label>
+    </ion-item>
+    <ion-item *ngIf="decision">
+      <img
+        style="height: 30px; width:30px;"
+        slot="start"
+        src="{{decisionImage}}"
+      />
+      <ion-label>{{decision}} </ion-label>
+    </ion-item>
+    <ion-item *ngIf="!hasRejected">
+      <img style="height: 30px; width:30px;" slot="start" src="{{hasPaid}}" />
+      <ion-label>Fee Payment Confirmation </ion-label>
+    </ion-item>
+    <ion-item *ngIf="!hasRejected">
+      <img style="height: 30px; width:30px;" slot="start" src="{{hasCas}}" />
+      <ion-label>CAS Issuance </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

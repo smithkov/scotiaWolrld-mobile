@@ -86,6 +86,9 @@ export class UploadPage implements OnInit {
       });
     });
   }
+  skip(){
+    this.router.navigate(["pages/finalForm"]);
+  }
   upload() {
     this.loaderService.showLoader("Saving document ...");
     let options: FileUploadOptions = {

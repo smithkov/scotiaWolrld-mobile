@@ -212,6 +212,6 @@ export class PhotoPage implements OnInit {
         } else {
           this.presentToast("File upload failed.");
         }
-      });
+      }), (err) => {loading.dismiss()};
   }
 }

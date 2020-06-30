@@ -12,7 +12,7 @@ import { LoaderServiceService } from "./../../loader-service.service";
 import {
   FileTransfer,
   FileUploadOptions,
-  FileTransferObject
+  FileTransferObject,
 } from "@ionic-native/file-transfer/ngx";
 import { FileChooser } from "@ionic-native/file-chooser/ngx";
 import { FilePath } from "@ionic-native/file-path/ngx";
@@ -21,7 +21,7 @@ import { File } from "@ionic-native/file/ngx";
 @Component({
   selector: "app-first-form",
   templateUrl: "./first-form.page.html",
-  styleUrls: ["./first-form.page.scss"]
+  styleUrls: ["./first-form.page.scss"],
 })
 export class FirstFormPage implements OnInit {
   quali: Observable<any>;
@@ -91,44 +91,49 @@ export class FirstFormPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loaderService.showLoader("Loading ...");
-    // this.showForm();
-    this.authenticationService.getCurrentUser().then(e => {
-      this.userId = e.id;
-      this.authenticationService.formOne(e.id).subscribe(data => {
-        console.log(data)
-        this.loaderService.hideLoader();
-        this.country = data.countries;
-        if (data.app) {
-          this.quali = data.quali;
-          this.selected = data.app.Country.name;
-          this.selectedDOB = data.app.dob;
-          this.id = data.app.id;
-          this.selectedGender = data.app.gender;
-          this.selectedMarital = data.app.marital;
-          this.selectedFn = data.app.firstname;
-          this.selectedMn = data.app.middlename;
-          this.selectedLn = data.app.lastname;
-          let course = data.course;
-          //caches course to data
-          this.data = course;
-          this.authenticationService.saveData(course);
-        } else {
-          this.authenticationService.getData().then((data: any) => {
-            this.data = data;
-          });
-        }
+    try {
+      this.loaderService.showLoader("Loading ...");
+      // this.showForm();
+      this.authenticationService.getCurrentUser().then((e) => {
+        this.userId = e.id;
+        this.authenticationService.formOne(e.id).subscribe((data) => {
+          
+          this.loaderService.hideLoader();
+          this.country = data.countries;
+          if (data.app) {
+            this.quali = data.quali;
+            this.selected = data.app.Country.name;
+            this.selectedDOB = data.app.dob;
+            this.id = data.app.id;
+            this.selectedGender = data.app.gender;
+            this.selectedMarital = data.app.marital;
+            this.selectedFn = data.app.firstname;
+            this.selectedMn = data.app.middlename;
+            this.selectedLn = data.app.lastname;
+            let course = data.course;
+            //caches course to data
+            this.data = course;
+            this.authenticationService.saveData(course);
+          } else {
+            this.loaderService.hideLoader();
+            this.authenticationService.getData().then((data: any) => {
+              this.data = data;
+            });
+          }
+        }, (err) => {this.loaderService.hideLoader();});
       });
-    });
-    //this gets stored institution
+      //this gets stored institution
+    } catch (err) {
+      this.loaderService.hideLoader();
+    }
   }
 
   showForm() {}
   async showModal() {
     const modal = await this.modalCtrl.create({
-      component: ModalPage
+      component: ModalPage,
     });
-    modal.onDidDismiss().then(dataReturned => {
+    modal.onDidDismiss().then((dataReturned) => {
       if (dataReturned.data !== undefined) {
         console.log(dataReturned);
         this.data = dataReturned.data;
@@ -183,19 +188,21 @@ export class FirstFormPage implements OnInit {
     // f.cityId = getCourse.Institution.cityId;
 
     f.applicationId = form.value.id;
-    this.authenticationService.form1(f).subscribe(data => {
-      if (!data.isError) {
-        this.loaderService.hideLoader();
-        this.router.navigate(["/pages/secondForm"]);
-        //this.showForm(false, true, false, false, false);
-      } else {
-        this.alertService.presentToast("Something went wrong!");
+    this.authenticationService.form1(f).subscribe(
+      (data) => {
+        if (!data.isError) {
+          this.loaderService.hideLoader();
+          this.router.navigate(["/pages/secondForm"]);
+          //this.showForm(false, true, false, false, false);
+        } else {
+          this.alertService.presentToast("Something went wrong!");
+        }
       }
-    },
-    error => {
+    ),
+    (err) => {
       this.loaderService.hideLoader();
       this.alertService.presentToast("Server not available");
-    });
+    };
   }
   // saveForm2(form: NgForm) {
   //   let f = new Application();

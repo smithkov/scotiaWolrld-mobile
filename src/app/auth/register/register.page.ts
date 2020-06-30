@@ -27,7 +27,7 @@ export class RegisterPage implements OnInit {
   register(form: NgForm) {
     this.loaderService.showLoader("Registering ...");
     this.authenticationService
-      .register(form.value.username, form.value.email, form.value.password)
+      .register(form.value.username, form.value.email, form.value.phone, form.value.password)
       .subscribe(
         data => {
           this.loaderService.hideLoader();
@@ -39,6 +39,6 @@ export class RegisterPage implements OnInit {
         error => {
           this.loaderService.hideLoader();
         }
-      );
+      ), (err) => {this.loaderService.hideLoader()};
   }
 }

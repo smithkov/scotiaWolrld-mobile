@@ -27,6 +27,10 @@ const routes: Routes = [
         loadChildren: "../dashboard/dashboard.module#DashboardPageModule"
       },
       {
+        path: "dashboard_update",
+        loadChildren: "../dashboard_update/dashboard_update.module#DashboardUpdatePageModule"
+      },
+      {
         path: "course/:facultyId/:schoolId",
         loadChildren: "../course/course.module#CoursePageModule"
       },

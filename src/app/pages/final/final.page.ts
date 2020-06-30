@@ -13,7 +13,7 @@ import { environment } from "../../../environments/environment";
 @Component({
   selector: "app-final",
   templateUrl: "./final.page.html",
-  styleUrls: ["./final.page.scss"]
+  styleUrls: ["./final.page.scss"],
 })
 export class FinalPage implements OnInit {
   app: any;
@@ -32,9 +32,9 @@ export class FinalPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authenticationService.getCurrentUser().then(e => {
+    this.authenticationService.getCurrentUser().then((e) => {
       this.userId = e.id;
-      this.authenticationService.formOne(e.id).subscribe(data => {
+      this.authenticationService.formOne(e.id).subscribe((data) => {
         this.loaderService.hideLoader();
         if (data.app) {
           this.id = data.app.id;
@@ -52,17 +52,17 @@ export class FinalPage implements OnInit {
     f.userId = this.userId;
     f.applicationId = this.id;
 
-    this.authenticationService.final(f).subscribe(data => {
+    this.authenticationService.final(f).subscribe((data) => {
       if (!data.isError) {
         this.loaderService.hideLoader();
-        this.router.navigate(["pages/dashboard"]);
+        this.router.navigate(["pages/dashboard_update"]);
       } else {
         this.alertService.presentToast("Something went wrong!");
       }
-    },
-        error => {
-          this.loaderService.hideLoader();
-          this.alertService.presentToast("Server not available");
-        });
+    }),
+      (err) => {
+        this.loaderService.hideLoader();
+        this.alertService.presentToast("Server not available");
+      };
   }
 }

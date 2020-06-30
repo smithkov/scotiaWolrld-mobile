@@ -30,29 +30,36 @@ export class LoginPage implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
   forgot(){
     const browser = this.iab.create('https://scotstudy.co.uk/forgot');
   }
   login(form: NgForm) {
-    this.loaderService.showLoader("Signing in ...");
-    this.authenticationService
-      .login(form.value.username, form.value.password, this.pushId)
-      .subscribe(
-        data => {
-          
-          this.loaderService.hideLoader();
-          if (data.success) {
+    try{
+      this.loaderService.showLoader("Signing in ...");
+      this.authenticationService
+        .login(form.value.username, form.value.password, this.pushId)
+        .subscribe(
+          data => {
             
-            this.navCtrl.navigateRoot("/pages/dashboard");
-          } else {
-            this.alertService.presentToast("Invalid login!");
+            this.loaderService.hideLoader();
+            if (data.success) {
+              
+              this.navCtrl.navigateRoot("/pages/dashboard");
+            } else {
+              this.alertService.presentToast("Username or password is incorrect.");
+            }
+          },
+          error => {
+            this.loaderService.hideLoader();
+            this.alertService.presentToast("Server not available");
           }
-        },
-        error => {
-          this.loaderService.hideLoader();
-          this.alertService.presentToast("Server not available");
-        }
-      );
+        ), (err) => {this.loaderService.hideLoader()};
+    }catch(err){
+      this.loaderService.hideLoader();
+    }
+   
   }
 }
